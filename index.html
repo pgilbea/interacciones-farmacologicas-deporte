@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fármacos y ejercicio · Farmacología CAFyD · UPNA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5F7; --card:#FFFFFF; --ink:#132433; --muted:#566676; --line:#D6DEE5; --soft:#E8EEF2; --skin:#DCE4EA; --skin2:#C9D4DD;
+  --sna:#6B7C12; --snc:#A97F00; --dolor:#C9561A; --cv:#B8322A; --resp:#0F7F86; --dig:#83386C; --f:#2C5A8C;
+  --ok:#2E7D32; --limite:#B07A00; --comp:#D9620B; --deporte:#1F5F8B; --siempre:#B3261E;
+  --c:var(--ink);
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F1820; --card:#16212B; --ink:#E6EDF2; --muted:#A1B0BD; --line:#2A3946; --soft:#1E2B36; --skin:#25333F; --skin2:#30414F;
+  --sna:#A9BC42; --snc:#E1B53F; --dolor:#F08A4B; --cv:#EE6B60; --resp:#3FC1C7; --dig:#CD7AB4; --f:#79A7DD;
+  --ok:#69C16E; --limite:#E3B23C; --comp:#F59A4E; --deporte:#6FA8DC; --siempre:#F07468; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0F1820; --card:#16212B; --ink:#E6EDF2; --muted:#A1B0BD; --line:#2A3946; --soft:#1E2B36; --skin:#25333F; --skin2:#30414F;
+  --sna:#A9BC42; --snc:#E1B53F; --dolor:#F08A4B; --cv:#EE6B60; --resp:#3FC1C7; --dig:#CD7AB4; --f:#79A7DD;
+  --ok:#69C16E; --limite:#E3B23C; --comp:#F59A4E; --deporte:#6FA8DC; --siempre:#F07468; color-scheme:dark; }
+:root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+*,*::before,*::after{ box-sizing:inherit; }
+html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px); }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.55; }
+a{ color:inherit; } button{ font:inherit; color:inherit; }
+:focus-visible{ outline:3px solid var(--f); outline-offset:2px; border-radius:6px; }
+h1,h2,h3{ font-family:var(--display); letter-spacing:.005em; line-height:1.05; }
+
+/* barra superior */
+header.top{ position:sticky; top:0; z-index:20; background:var(--card); border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top,0px); margin-top:calc(-1 * env(safe-area-inset-top,0px)); }
+body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:21; background:var(--card); }
+.topin{ max-width:1180px; margin:0 auto; display:flex; align-items:center; gap:18px; padding:10px 20px; flex-wrap:wrap; }
+.logo{ text-decoration:none; display:flex; align-items:baseline; gap:8px; margin-right:auto; }
+.logo b{ font-family:var(--display); font-size:1.55rem; font-weight:800; }
+.logo span{ color:var(--muted); font-size:.9rem; }
+nav.main{ display:flex; gap:4px; flex-wrap:wrap; }
+nav.main a{ text-decoration:none; padding:7px 12px; border-radius:8px; font-weight:600; font-size:.95rem; }
+nav.main a:hover{ background:var(--soft); }
+nav.main a[aria-current="page"]{ background:var(--ink); color:var(--card); }
+main{ max-width:1180px; margin:0 auto; padding:24px 20px 80px; }
+
+/* portada con el cuerpo */
+.hero{ display:grid; grid-template-columns:minmax(300px,440px) minmax(0,1fr); gap:34px; align-items:start; }
+.bodycard{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:14px 10px 6px; position:sticky; top:84px; }
+.bodycard svg{ width:100%; height:auto; display:block; max-height:calc(100vh - 130px); }
+.hot{ cursor:pointer; transition:opacity .15s; }
+.hot .o{ transition:filter .15s, transform .15s; transform-box:fill-box; transform-origin:center; }
+.hot:hover .o, .hot:focus .o, .hot.on .o{ filter:brightness(1.12) drop-shadow(0 0 6px rgba(0,0,0,.25)); }
+svg.dim .hot:not(.on){ opacity:.35; }
+.hot:focus{ outline:none; }
+.hero h1{ font-size:clamp(2.6rem,6vw,4.3rem); font-weight:800; margin:4px 0 12px; text-transform:none; }
+.hero .lead{ font-size:1.12rem; color:var(--muted); max-width:58ch; margin:0 0 20px; }
+.peek{ background:var(--card); border:1px solid var(--line); border-left:8px solid var(--c); border-radius:12px; padding:14px 18px; min-height:132px; margin-bottom:18px; }
+.peek h2{ font-size:1.7rem; margin:0 0 4px; color:var(--c); }
+.peek p{ margin:4px 0 0; color:var(--muted); }
+.syslist{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px; margin:0 0 26px; }
+.syslist a{ display:flex; gap:12px; align-items:center; text-decoration:none; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px; }
+.syslist a:hover, .syslist a.on{ border-color:var(--c); box-shadow:inset 4px 0 0 var(--c); }
+.syslist i{ width:14px; height:14px; border-radius:4px; background:var(--c); flex:none; }
+.syslist b{ display:block; line-height:1.2; } .syslist small{ color:var(--muted); }
+.tools{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.tools a{ text-decoration:none; background:var(--ink); color:var(--card); border-radius:14px; padding:16px 18px; display:block; }
+.tools a:nth-child(2){ background:var(--f); }
+.tools a b{ font-family:var(--display); font-size:1.35rem; display:block; }
+.tools a span{ opacity:.85; font-size:.95rem; }
+.legend{ margin-top:24px; display:flex; flex-wrap:wrap; gap:8px; }
+
+/* insignias AMA */
+.ama{ display:inline-flex; align-items:center; gap:7px; border-radius:999px; padding:3px 11px 3px 8px; font-weight:700; font-size:.86rem; color:#fff; background:var(--a); white-space:nowrap; }
+.ama::before{ content:""; width:9px; height:9px; border-radius:50%; background:#fff; opacity:.9; }
+:root[data-theme="dark"] .ama, .dk .ama{ color:#0F1820; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .ama{ color:#0F1820; } :root:not([data-theme="light"]) .ama::before{ background:#0F1820; } }
+
+/* página de sistema */
+.shead{ border-radius:18px; padding:22px 24px; background:var(--card); border:1px solid var(--line); border-top:10px solid var(--c); margin-bottom:22px; }
+.crumbs{ font-size:.92rem; color:var(--muted); margin-bottom:6px; }
+.crumbs a{ color:var(--muted); }
+.shead h1{ font-size:clamp(2.2rem,5vw,3.4rem); margin:0 0 10px; color:var(--c); }
+.shead p.idea{ font-size:1.12rem; max-width:72ch; margin:0 0 12px; }
+.shead ul{ margin:0; padding-left:1.1em; color:var(--muted); max-width:80ch; }
+.shead ul li{ margin:3px 0; }
+.map{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 18px; margin:0 0 22px; }
+.map h2{ font-size:1.6rem; margin:0 0 4px; color:var(--c); }
+.map > p{ margin:0 0 10px; color:var(--muted); }
+.mrow{ display:grid; grid-template-columns:minmax(150px,230px) 26px minmax(0,1fr) 26px minmax(140px,240px); gap:8px; align-items:center; padding:8px 0; border-top:1px dashed var(--line); }
+.map > p + .mrow{ border-top:0; }
+.mt{ background:var(--c); color:var(--card); border-radius:10px; padding:8px 12px; line-height:1.2; }
+.mt b{ font-family:var(--display); font-size:1.25rem; display:block; }
+.mt small{ opacity:.9; }
+.arr{ text-align:center; color:var(--c); font-size:1.3rem; font-weight:700; }
+.mlinks{ display:flex; flex-wrap:wrap; gap:6px; }
+.mlinks a{ text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 8px; background:var(--bg); display:inline-flex; gap:6px; align-items:center; font-weight:600; font-size:.94rem; }
+.mlinks a i{ width:10px; height:10px; border-radius:50%; background:var(--a); }
+.mlinks a:hover{ border-color:var(--c); }
+.mw{ color:var(--muted); font-size:.95rem; }
+@media (max-width: 900px){ .mrow{ grid-template-columns:1fr; } .arr{ display:none; } }
+.cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.gcard{ display:flex; flex-direction:column; gap:10px; text-decoration:none; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
+.gcard:hover{ border-color:var(--c); }
+.gcard h3{ font-size:1.42rem; margin:0; }
+.gcard .ex{ color:var(--muted); font-size:.93rem; }
+.meters{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.meter small{ display:block; color:var(--muted); font-size:.8rem; margin-bottom:3px; }
+.bar5{ display:grid; grid-template-columns:repeat(5,1fr); gap:3px; }
+.bar5 i, .bar3 i{ height:9px; border-radius:3px; background:var(--soft); }
+.bar3{ display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+.bar5 i.mid{ background:var(--line); }
+
+/* ficha */
+.fhead{ display:grid; grid-template-columns:1fr; gap:4px; margin-bottom:18px; }
+.fhead h1{ font-size:clamp(2.2rem,5vw,3.5rem); margin:0; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 0; }
+.chips span{ background:var(--card); border:1px solid var(--line); border-radius:999px; padding:2px 12px; font-size:.95rem; }
+.dials{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:18px 0 24px; }
+.dial{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+.dial h3{ font-size:1.05rem; margin:0 0 10px; color:var(--muted); font-family:var(--body); font-weight:700; }
+.scale{ position:relative; height:16px; border-radius:8px; background:linear-gradient(90deg, var(--siempre), var(--line) 50%, var(--ok)); margin:8px 0 6px; }
+.scale.risk{ background:linear-gradient(90deg, var(--ok), var(--limite) 50%, var(--siempre)); }
+.scale b{ position:absolute; top:-6px; width:6px; height:28px; border-radius:3px; background:var(--ink); transform:translateX(-50%); box-shadow:0 0 0 3px var(--card); }
+.scale-l{ display:flex; justify-content:space-between; color:var(--muted); font-size:.8rem; }
+.dial p{ margin:8px 0 0; font-size:.98rem; }
+.cols{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:18px; }
+.box{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 20px; }
+.box h2{ font-size:1.5rem; margin:0 0 8px; color:var(--c); }
+.box p{ margin:0 0 6px; }
+.box ul{ margin:0; padding-left:1.1em; } .box li{ margin:6px 0; }
+.todo{ margin-top:18px; background:var(--ink); color:var(--card); border-radius:16px; padding:16px 20px; font-size:1.08rem; }
+.todo b.t{ font-family:var(--display); font-size:1.3rem; display:block; margin-bottom:2px; }
+.pager{ display:flex; justify-content:space-between; gap:12px; margin-top:26px; flex-wrap:wrap; }
+.pager a{ text-decoration:none; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 14px; max-width:48%; }
+.pager small{ display:block; color:var(--muted); }
+
+/* semáforo */
+.filters{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 18px; }
+.filters button{ border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 14px; cursor:pointer; font-weight:600; }
+.filters button[aria-pressed="true"]{ background:var(--c); color:var(--card); border-color:var(--c); }
+.lanes{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.lane{ background:var(--card); border:1px solid var(--line); border-top:8px solid var(--a); border-radius:14px; padding:12px; min-height:200px; }
+.lane h3{ font-size:1.2rem; margin:0 0 4px; color:var(--a); }
+.lane p{ margin:0 0 10px; color:var(--muted); font-size:.86rem; }
+.lane a{ display:block; text-decoration:none; padding:7px 10px; margin:6px 0; border-radius:8px; background:var(--soft); border-left:5px solid var(--c); font-size:.95rem; line-height:1.25; }
+
+/* juego */
+.game{ max-width:820px; }
+.qcard{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:22px; }
+.qcard .sc{ font-family:var(--display); font-size:clamp(1.5rem,3.4vw,2.1rem); line-height:1.15; margin:6px 0 18px; }
+.answers{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+.answers button{ text-align:left; padding:12px 14px; border-radius:12px; border:2px solid var(--line); background:var(--bg); cursor:pointer; font-weight:700; display:flex; gap:10px; align-items:center; }
+.answers button i{ width:14px; height:14px; border-radius:50%; background:var(--a); flex:none; }
+.answers button.right{ border-color:var(--ok); background:color-mix(in srgb,var(--ok) 14%,var(--card)); }
+.answers button.wrong{ border-color:var(--siempre); background:color-mix(in srgb,var(--siempre) 12%,var(--card)); }
+.feedback{ margin-top:16px; padding:12px 16px; border-radius:12px; background:var(--soft); display:none; }
+.feedback.show{ display:block; }
+.gbar{ display:flex; justify-content:space-between; align-items:center; margin:0 0 12px; color:var(--muted); font-weight:600; flex-wrap:wrap; gap:10px; }
+.btn{ background:var(--ink); color:var(--card); border:0; border-radius:10px; padding:10px 16px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-block; }
+
+/* fundamentos y dopaje */
+.tabs{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px; }
+.tabs a{ text-decoration:none; padding:8px 14px; border-radius:10px; border:1px solid var(--line); background:var(--card); font-weight:700; }
+.tabs a[aria-current="page"]{ background:var(--f); color:var(--card); border-color:var(--f); }
+.flow{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 20px; margin:14px 0; }
+.flow .tg{ display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; margin-bottom:12px; }
+.flow .tg button{ border:0; background:transparent; padding:7px 16px; cursor:pointer; font-weight:700; }
+.flow .tg button[aria-pressed="true"]{ background:var(--f); color:var(--card); }
+.frow{ display:grid; grid-template-columns:150px 1fr 54px; gap:10px; align-items:center; margin:7px 0; }
+.frow .tr{ height:20px; background:var(--soft); border-radius:6px; overflow:hidden; }
+.frow .tr i{ display:block; height:100%; background:var(--f); border-radius:6px; transition:width .5s ease; }
+.frow b{ text-align:right; font-variant-numeric:tabular-nums; }
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+table.t{ width:100%; border-collapse:collapse; background:var(--card); border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+table.t th, table.t td{ text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--line); font-size:.96rem; }
+table.t th{ background:var(--ink); color:var(--card); font-weight:700; }
+.tablewrap{ overflow-x:auto; }
+.list{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; margin:10px 0 16px; }
+.list button{ text-align:left; border:1px solid var(--line); border-left:7px solid var(--a); background:var(--card); border-radius:10px; padding:8px 10px; cursor:pointer; line-height:1.2; }
+.list button b{ font-family:var(--display); font-size:1.25rem; display:block; }
+.list button small{ color:var(--muted); }
+.list button[aria-pressed="true"]{ background:color-mix(in srgb,var(--a) 14%,var(--card)); }
+.detail{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; min-height:90px; }
+footer{ color:var(--muted); font-size:.88rem; margin-top:56px; border-top:1px solid var(--line); padding-top:14px; }
+
+@media (max-width: 900px){
+  .hero{ grid-template-columns:1fr; }
+  .bodycard{ position:static; max-width:420px; margin:0 auto; }
+  .dials{ grid-template-columns:1fr; }
+  .cols{ grid-template-columns:1fr; }
+  .lanes{ grid-template-columns:1fr; }
+  .pager a{ max-width:100%; flex:1 1 100%; }
+  .frow{ grid-template-columns:110px 1fr 48px; }
+}
+@media (max-width: 640px){
+  .logo span{ display:none; }
+  .topin{ gap:8px; padding:8px 14px; }
+  nav.main{ flex-wrap:nowrap; overflow-x:auto; width:100%; -webkit-overflow-scrolling:touch; }
+  nav.main a{ white-space:nowrap; padding:6px 10px; }
+  .bodycard{ max-width:300px; }
+  html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 110px); }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+  <a class="logo" href="#inicio"><b>Fármacos y ejercicio</b><span>Farmacología · CAFyD</span></a>
+  <nav class="main" aria-label="Secciones">
+    <a href="#inicio" data-r="inicio">Cuerpo</a><a href="#semaforo" data-r="semaforo">Semáforo AMA</a><a href="#juego" data-r="juego">¿Permitido?</a><a href="#fund-ladme" data-r="fund">Fundamentos</a><a href="#dopaje" data-r="dopaje">Dopaje</a>
+  </nav>
+</div></header>
+<main id="app" tabindex="-1"></main>
+<script>
+/* Categorías de la Lista AMA 2026 usadas en el semáforo */
+var AMA = {
+ ok:      {n:"Permitido", d:"No figura en la Lista de Prohibiciones.", k:"ok"},
+ limite:  {n:"Depende de la dosis o la vía", d:"Permitido solo por debajo de una dosis, por debajo de un umbral urinario o por determinadas vías.", k:"limite"},
+ comp:    {n:"Prohibido en competición", d:"Prohibido desde las 23:59 h del día anterior a la competición hasta el final del control.", k:"comp"},
+ deporte: {n:"Prohibido en deportes concretos", d:"Solo en los deportes en los que mejora el rendimiento.", k:"deporte"},
+ siempre: {n:"Prohibido siempre", d:"En competición y fuera de competición.", k:"siempre"}
+};
+
+var SIS = {
+ sna:{n:"Sistema nervioso autónomo", corto:"SNA", organo:"Nervios autónomos", c:"sna",
+  idea:"El ejercicio es una **descarga simpática**: sube la frecuencia cardiaca, se abren los bronquios, se moviliza la glucosa y la sangre se desvía hacia el músculo. Casi todos estos fármacos imitan o bloquean esa respuesta.",
+  claves:["**Simpático** (noradrenalina, adrenalina) sobre receptores α y β; **parasimpático** (acetilcolina) sobre receptores muscarínicos.","**β1 = un corazón** (frecuencia y fuerza); **β2 = dos pulmones** (broncodilatación, vasodilatación muscular, glucosa).","Las glándulas sudoríparas son simpáticas pero colinérgicas (M3): un anticolinérgico **quita el sudor** y facilita el golpe de calor."]},
+ snc:{n:"Sistema nervioso central", corto:"SNC", organo:"Cerebro", c:"snc",
+  idea:"El cerebro decide **cuándo parar**. Los fármacos que cambian la percepción de la fatiga son los más ergogénicos y los más peligrosos. Casi todos los demás psicofármacos están permitidos, pero ninguno es neutro.",
+  claves:["Prohibidos en competición: **estimulantes** (S6), **narcóticos** (S7) y **cannabinoides** (S8).","Permitidos, pero con impacto: antidepresivos, ansiolíticos, antiepilépticos, antipsicóticos y antiparkinsonianos.","No prohibido no significa sin consecuencias: vigilancia, coordinación, sueño, peso y **termorregulación**."]},
+ dolor:{n:"Dolor e inflamación", corto:"Dolor", organo:"Músculos y articulaciones", c:"dolor",
+  idea:"El dolor es una **señal** y la inflamación forma parte de la **reparación**. Silenciarlos tiene un precio en el riñón, el estómago o el tendón, y algunos analgésicos están prohibidos en competición.",
+  claves:["Los **AINE** actúan en la lesión (prostaglandinas); los **opioides**, en la médula; el **paracetamol**, sobre todo en el cerebro.","Nada de antiinflamatorios **«por si acaso»** antes de una prueba larga.","Corticoides inyectables y opioides (también el tramadol): **prohibidos en competición**."]},
+ cv:{n:"Cardiovascular y riñón", corto:"Cardiovascular", organo:"Corazón, vasos y riñón", c:"cv",
+  idea:"**PA = gasto cardiaco × resistencia periférica.** Cada fármaco actúa sobre el volumen, el corazón o los vasos, y eso cambia la frecuencia cardiaca, la presión, la hidratación y la seguridad durante la sesión.",
+  claves:["Antes de programar una sesión: **¿qué toma y qué cambia eso** en la FC, la PA, la hidratación y la seguridad?","Con betabloqueantes, verapamilo o diltiazem, la FC deja de servir: **intensidad por esfuerzo percibido**.","Diuréticos: **prohibidos siempre** (S5). Betabloqueantes: prohibidos en **deportes de precisión** (P1)."]},
+ resp:{n:"Respiratorio", corto:"Respiratorio", organo:"Pulmones", c:"resp",
+  idea:"El tono bronquial lo deciden el **parasimpático** (cierra, receptores M3) y la **adrenalina** (abre, receptores β2), sobre un fondo de inflamación. **Broncodilatar alivia; desinflamar controla.**",
+  claves:["Asma: obstrucción **reversible** e inflamatoria. EPOC: obstrucción **poco reversible**, ligada al tabaco.","La vía **inhalada** pone el fármaco donde hace falta con mínimos efectos sistémicos.","Los β2 inhalados están permitidos **hasta una dosis máxima**; por encima, o por vía oral, hace falta AUT."]},
+ dig:{n:"Digestivo", corto:"Digestivo", organo:"Estómago e intestino", c:"dig",
+  idea:"En el esfuerzo intenso el **flujo esplácnico cae hasta un 80 %**: el intestino del deportista es frágil. Los fármacos digestivos alivian síntomas, pero algunos se usan mal para **dar el peso**.",
+  claves:["Factores agresores (ácido, pepsina, H. pylori, **AINE**) frente a protectores (moco, bicarbonato, prostaglandinas).","Rehidratación oral: la **glucosa arrastra sodio y agua**. Es la base fisiológica de las bebidas deportivas.","Los laxantes no están prohibidos, pero usarlos para perder peso deshidrata y baja el potasio."]}
+};
+
+/* Rendimiento: -2 (empeora mucho) … +2 (mejora claramente). Riesgo: 1 bajo, 2 moderado, 3 alto */
+var G = [
+/* ---------------- SNA ---------------- */
+{id:"anticolinergicos", s:"sna", n:"Antimuscarínicos (anticolinérgicos)", ej:["Atropina","Butilescopolamina","Escopolamina","Oxibutinina","Ipratropio"],
+ mec:"Bloquean los receptores **muscarínicos** de la acetilcolina: frenan el parasimpático.",
+ porque:"El parasimpático es el freno del reposo y la digestión. Al bloquearlo, predominan los efectos simpáticos: taquicardia, midriasis, sequedad y **menos sudor** (la glándula sudorípara funciona con receptores M3).",
+ rend:0, rendT:"No mejora el rendimiento.", riesgo:2,
+ ejer:["Menos sudoración: **peor termorregulación** y más riesgo de golpe de calor.","Taquicardia, visión borrosa, boca seca, estreñimiento.","Butilescopolamina (cólico) no entra en el cerebro; escopolamina (mareo del viaje) sí: somnolencia."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Con calor, hidratación y pausas; vigilar signos de golpe de calor en quien toma un anticolinérgico."},
+{id:"colinergicos", s:"sna", n:"Parasimpaticomiméticos", ej:["Pilocarpina","Piridostigmina","Donepezilo"],
+ mec:"Activan el receptor muscarínico (directos) o impiden que la acetilcolinesterasa destruya la acetilcolina (indirectos).",
+ porque:"Más acetilcolina = más freno vagal: bradicardia, broncoconstricción, secreciones, sudor, diarrea (**DUMBELS**).",
+ rend:-1, rendT:"Pueden limitar la respuesta al esfuerzo.", riesgo:2,
+ ejer:["Bradicardia y síncope; broncoespasmo en asmáticos.","Piridostigmina (miastenia): mejora la fuerza del paciente, pero con calambres y diarrea."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"En un paciente con donepezilo o piridostigmina, vigilar mareo y frecuencia cardiaca baja."},
+{id:"alfa1", s:"sna", n:"Agonistas α1 y descongestionantes", ej:["Fenilefrina","Oximetazolina","Xilometazolina","Pseudoefedrina","Efedrina"],
+ mec:"Activan receptores **α1**: contraen el vaso y deshinchan la mucosa nasal. Efedrina y pseudoefedrina además liberan noradrenalina.",
+ porque:"La vasoconstricción despeja la nariz, pero por vía sistémica sube la tensión y la frecuencia. Efedrina y pseudoefedrina tienen además efecto **estimulante central**.",
+ rend:1, rendT:"Efedrina y pseudoefedrina a dosis altas: ligero efecto estimulante. Los esprays nasales, ninguno.", riesgo:2,
+ ejer:["Hipertensión, taquicardia, arritmias; peor termorregulación con calor.","Esprays nasales: máximo 3-5 días (**rinitis medicamentosa** por rebote)."],
+ ama:"limite", amaT:"Imidazolinas tópicas (oximetazolina, xilometazolina): permitidas. **Efedrina > 10 µg/mL** y **pseudoefedrina > 150 µg/mL** en orina: prohibidas en competición (S6). Fenilefrina: programa de seguimiento.",
+ hacer:"Revisar los antigripales: muchos llevan pseudoefedrina. Ante la duda, consultar NoDopApp."},
+{id:"adrenalina", s:"sna", n:"Adrenalina", ej:["Adrenalina (autoinyector)"],
+ mec:"Agonista **α y β**: vasoconstricción (α1), más fuerza y frecuencia cardiaca (β1) y broncodilatación (β2).",
+ porque:"Revierte en minutos el colapso circulatorio, el edema y el broncoespasmo de la **anafilaxia**.",
+ rend:0, rendT:"Uso médico de urgencia: no tiene sentido como ayuda ergogénica.", riesgo:2,
+ ejer:["Anafilaxia (también la inducida por ejercicio): **adrenalina intramuscular** en la cara externa del muslo.","Taquicardia, temblor, ansiedad, hipertensión."],
+ ama:"limite", amaT:"Uso local (nasal, oftálmico, con anestésicos locales): permitido. Uso sistémico: prohibido en competición (S6), pero **en una anafilaxia se administra siempre**: la AUT puede solicitarse después (retroactiva).",
+ hacer:"El deportista alérgico debe llevar su autoinyector a entrenamientos y competiciones."},
+{id:"alfabloq", s:"sna", n:"Bloqueantes α1", ej:["Tamsulosina","Doxazosina","Silodosina"],
+ mec:"Bloquean los receptores **α1**: relajan el vaso y la próstata.",
+ porque:"Menos vasoconstricción: baja la resistencia periférica y mejora el flujo de orina en la hiperplasia de próstata.",
+ rend:0, rendT:"Neutros para el rendimiento.", riesgo:1,
+ ejer:["**Hipotensión ortostática**: mareo al levantarse o al parar en seco tras el esfuerzo.","La vasodilatación del fármaco se suma a la del ejercicio y el calor."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Vuelta a la calma progresiva; cuidado con sauna y duchas muy calientes."},
+
+/* ---------------- RESPIRATORIO ---------------- */
+{id:"saba", s:"resp", n:"Agonistas β2 de acción corta (SABA)", ej:["Salbutamol","Terbutalina"],
+ mec:"Activan receptores **β2** del músculo liso bronquial: ↑ AMPc, ↓ calcio, **broncodilatación** en minutos (4-8 h).",
+ porque:"Imitan a la adrenalina en el bronquio. Son el **rescate** de la crisis y la prevención del **asma inducida por ejercicio** (inhalados 15 minutos antes).",
+ rend:0, rendT:"Inhalados a dosis terapéuticas no mejoran el rendimiento de un no asmático; por vía oral o a dosis altas tienen efectos anabolizantes y sí son ergogénicos.", riesgo:1,
+ ejer:["Temblor, taquicardia, hipopotasemia a dosis altas.","Usar el rescate más de 2 veces por semana = asma mal controlada.","El entrenamiento desensibiliza los receptores β: puede hacer falta más dosis para el mismo alivio."],
+ ama:"limite", amaT:"**Salbutamol inhalado: máx. 1600 µg/24 h** (sin pasar de 600 µg en 8 h); umbral urinario 1000 ng/mL. **Terbutalina** y cualquier β2 oral o inyectado: prohibidos (S3) salvo AUT.",
+ hacer:"Técnica de inhalación con cámara y no superar los máximos. Ante una crisis grave, no dudar en usarlo."},
+{id:"laba", s:"resp", n:"Agonistas β2 de acción larga (LABA)", ej:["Formoterol","Salmeterol","Vilanterol","Indacaterol"],
+ mec:"Igual que los SABA, pero con efecto de unas **12 h** (o 24 h los ultra-LABA).",
+ porque:"Mantienen el bronquio abierto en el tratamiento de mantenimiento. En el asma, **siempre con un corticoide inhalado**: solos aumentan las crisis graves.",
+ rend:0, rendT:"Sin efecto ergogénico a dosis inhaladas permitidas.", riesgo:1,
+ ejer:["Temblor y taquicardia a dosis altas.","No sustituyen al tratamiento de fondo antiinflamatorio."],
+ ama:"limite", amaT:"**Formoterol: máx. 54 µg/24 h. Salmeterol: máx. 200 µg/24 h** (y 100 µg en 8 h, novedad 2026). **Vilanterol: 25 µg/24 h.** El resto de β2 (indacaterol, olodaterol…): prohibidos (S3) salvo AUT.",
+ hacer:"Comprobar el principio activo del inhalador combinado: no todos los LABA están permitidos sin AUT."},
+{id:"lama", s:"resp", n:"Antimuscarínicos inhalados", ej:["Ipratropio","Tiotropio","Aclidinio","Glicopirronio"],
+ mec:"Bloquean los receptores **M3** bronquiales: quitan el tono vagal que cierra el bronquio.",
+ porque:"El vago mantiene un tono broncoconstrictor. Por vía inhalada actúan en el bronquio con pocos efectos sistémicos. Más eficaces en la EPOC que en el asma.",
+ rend:0, rendT:"Neutros para el rendimiento.", riesgo:1,
+ ejer:["Boca seca; con nebulizador, cuidado con los ojos (glaucoma)."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Ipratropio en crisis (con salbutamol); tiotropio en mantenimiento."},
+{id:"ci", s:"resp", n:"Corticoides inhalados", ej:["Budesonida","Fluticasona","Beclometasona","Mometasona"],
+ mec:"Antiinflamatorios: reducen la inflamación de base del bronquio. **No son broncodilatadores** y tardan horas o días.",
+ porque:"El asma es una enfermedad inflamatoria: el corticoide inhalado es el **tratamiento de fondo** que evita crisis e ingresos.",
+ rend:0, rendT:"Sin efecto ergogénico por vía inhalada.", riesgo:1,
+ ejer:["Candidiasis oral y disfonía: enjuagarse la boca tras cada uso.","Interacción: claritromicina o ritonavir aumentan sus niveles en sangre."],
+ ama:"ok", amaT:"Inhalados: **permitidos** (S9 solo prohíbe en competición las vías oral, rectal e inyectable).",
+ hacer:"Usarlo a diario aunque el deportista esté bien: es lo que controla el asma."},
+{id:"antileuco", s:"resp", n:"Antileucotrienos", ej:["Montelukast","Zafirlukast"],
+ mec:"Bloquean el receptor **CysLT1** de los leucotrienos: menos broncoconstricción e inflamación.",
+ porque:"Los leucotrienos son mediadores de la broncoconstricción, también la inducida por esfuerzo. Vía oral: útiles en niños y en asma leve. **No sirven de rescate.**",
+ rend:0, rendT:"Neutros para el rendimiento.", riesgo:1,
+ ejer:["RAM escasas (digestivas, cefalea); vigilar alteraciones del sueño o del ánimo."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Alternativa o complemento en el asma de esfuerzo leve."},
+{id:"teofilina", s:"resp", n:"Metilxantinas", ej:["Teofilina","Aminofilina"],
+ mec:"Inhiben la **fosfodiesterasa** y bloquean la adenosina: broncodilatación. Misma familia que la cafeína.",
+ porque:"Hoy se usan poco: margen terapéutico estrecho y muchas interacciones (el tabaco la induce; macrólidos y ciprofloxacino la aumentan).",
+ rend:0, rendT:"Sin efecto ergogénico relevante a dosis terapéuticas.", riesgo:2,
+ ejer:["Taquicardia, arritmias, temblor, náuseas, insomnio.","Se suma a la cafeína de geles y preentrenos."],
+ ama:"ok", amaT:"Permitida.",
+ hacer:"Preguntar por cafeína y suplementos estimulantes si toma teofilina."},
+{id:"biologicos", s:"resp", n:"Biológicos para el asma grave", ej:["Omalizumab","Mepolizumab","Benralizumab","Dupilumab","Tezepelumab"],
+ mec:"Anticuerpos contra la **IgE**, la **IL-5**, la IL-4/IL-13 o la TSLP: frenan la inflamación tipo 2.",
+ porque:"Para asma grave que no se controla con el tratamiento inhalado. Vía subcutánea cada 2-8 semanas.",
+ rend:0, rendT:"Neutros para el rendimiento.", riesgo:1,
+ ejer:["Reacción local; riesgo, raro, de anafilaxia tras la inyección."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Evitar entrenar fuerte justo después de la inyección las primeras veces."},
+{id:"antitusigenos", s:"resp", n:"Antitusígenos opioides", ej:["Codeína","Dextrometorfano"],
+ mec:"Agonistas opioides que **deprimen el centro de la tos** del bulbo.",
+ porque:"La tos productiva defiende el pulmón y no debe suprimirse. Se tratan la tos seca e intensa que impide descansar, y siempre la causa.",
+ rend:-1, rendT:"Somnolencia: empeoran la atención y los reflejos.", riesgo:2,
+ ejer:["Estreñimiento y somnolencia; a dosis altas, depresión respiratoria.","Codeína: potencial adictivo; se transforma en morfina."],
+ ama:"limite", amaT:"Dextrometorfano: permitido. **Codeína**: no prohibida, en programa de seguimiento; pero se metaboliza a **morfina**, prohibida en competición por encima de 1 µg/mL.",
+ hacer:"Evitar la codeína en los días previos a competir."},
+
+/* ---------------- CARDIOVASCULAR ---------------- */
+{id:"diureticos", s:"cv", n:"Diuréticos", ej:["Hidroclorotiazida","Clortalidona","Furosemida","Espironolactona","Manitol IV"],
+ mec:"Impiden que el riñón recupere **sodio** en algún tramo de la nefrona; el agua sigue al sodio.",
+ porque:"Más orina y menos volumen dentro de los vasos: baja la presión y se alivian los edemas. Tiazidas y de asa hacen perder **potasio**; los ahorradores lo retienen.",
+ rend:-1, rendT:"Empeoran el rendimiento aeróbico y la tolerancia al calor.", riesgo:3,
+ ejer:["Menos volumen sistólico y peor disipación del calor: **deshidratación y golpe de calor**.","Pérdida de K⁺ y Mg²⁺: calambres, debilidad, arritmias.","Tiazidas: hiponatremia si se bebe agua en exceso en pruebas largas."],
+ ama:"siempre", amaT:"**Prohibidos siempre (S5)**, también el manitol IV: se usan para perder peso rápido y para **diluir u ocultar** otras sustancias en la orina. Un deportista hipertenso necesita AUT.",
+ hacer:"Hidratación pautada y prudencia con el calor; nunca para «dar el peso»."},
+{id:"betabloq", s:"cv", n:"Betabloqueantes", ej:["Bisoprolol","Atenolol","Metoprolol","Propranolol","Carvedilol"],
+ mec:"Bloquean los receptores **β**: β1 (↓ FC, ↓ fuerza, ↓ renina) y, los no selectivos, también β2.",
+ porque:"Un freno para la adrenalina: menos trabajo cardiaco (angina, posinfarto, arritmias, insuficiencia cardiaca) y menos temblor y ansiedad (propranolol).",
+ rend:-1, rendT:"Pequeño descenso del VO₂máx y más fatiga en resistencia. **Mejoran** la puntería al quitar el temblor.", riesgo:2,
+ ejer:["La **FC deja de ser un buen termómetro**: la fórmula 220-edad no sirve; usar esfuerzo percibido (Borg) o el test del habla.","No selectivos: broncoespasmo en asmáticos y menos salida de glucosa y grasa (fatiga precoz).","Ocultan los avisos de la hipoglucemia. No suspender de golpe: taquicardia de rebote."],
+ ama:"deporte", amaT:"**P1**: prohibidos siempre en **tiro con arco, tiro y actividades subacuáticas**; en competición en automovilismo, billar, dardos, golf y minigolf.",
+ hacer:"Preguntar por la medicación en la entrevista inicial y no interpretar una FC baja como permiso para apretar más."},
+{id:"dhp", s:"cv", n:"Antagonistas del calcio dihidropiridínicos", ej:["Amlodipino","Nifedipino"],
+ mec:"Bloquean los canales de calcio tipo L del **músculo liso arterial**: vasodilatación.",
+ porque:"Sin calcio el músculo no se contrae: baja la resistencia periférica y la presión, sin frenar el corazón.",
+ rend:0, rendT:"No frenan la FC ni reducen la capacidad de ejercicio: buena opción en hipertensos activos.", riesgo:1,
+ ejer:["**Hipotensión tras el esfuerzo**: la vasodilatación del fármaco se suma a la del ejercicio.","Edema de tobillos (no es retención de líquido: no mejora con diuréticos), cefalea, rubor."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Vuelta a la calma de 5-10 minutos; cuidado con sauna y duchas muy calientes."},
+{id:"nodhp", s:"cv", n:"Verapamilo y diltiazem", ej:["Verapamilo","Diltiazem"],
+ mec:"Bloquean los canales de calcio del **corazón** y los vasos: ↓ FC, ↓ fuerza y vasodilatación.",
+ porque:"Controlan la frecuencia en la fibrilación auricular y alivian la angina, porque reducen el trabajo del corazón.",
+ rend:-1, rendT:"Limitan la subida de la FC con el esfuerzo.", riesgo:2,
+ ejer:["Bajan la FC como un betabloqueante: **intensidad por esfuerzo percibido**.","Bradicardia y estreñimiento; no se asocian a betabloqueantes."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Controlar la intensidad por sensaciones, no por pulsómetro."},
+{id:"ieca", s:"cv", n:"IECA y ARA II", ej:["Enalapril","Ramipril","Losartán","Valsartán","Candesartán"],
+ mec:"Cortan el **sistema renina-angiotensina**: los IECA impiden formar angiotensina II; los ARA II bloquean su receptor AT1.",
+ porque:"Menos angiotensina II: vasodilatación, menos aldosterona (menos sodio retenido) y menos remodelado del corazón y los vasos.",
+ rend:0, rendT:"Neutros: no modifican la FC ni la capacidad aeróbica.", riesgo:2,
+ ejer:["**Triple amenaza** para el riñón: IECA/ARA II + diurético + AINE + deshidratación = fracaso renal agudo.","Tos seca con IECA; ↑ potasio (cuidado con sales y suplementos de potasio).","Contraindicados en el embarazo."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Sin ibuprofeno «preventivo» y con buena hidratación, sobre todo con calor o en ultrafondo."},
+{id:"nitratos", s:"cv", n:"Nitratos", ej:["Nitroglicerina sublingual","Mononitrato de isosorbida"],
+ mec:"Liberan **óxido nítrico**: dilatan sobre todo las venas (llega menos sangre al corazón) y las coronarias.",
+ porque:"Bajan la demanda de oxígeno del corazón y mejoran el aporte: es el rescate de la angina.",
+ rend:0, rendT:"Permiten hacer más esfuerzo antes de que aparezca la angina.", riesgo:2,
+ ejer:["Nitroglicerina sublingual **5-10 min antes** de un esfuerzo que suela provocar angina, tomada sentado.","Cefalea, hipotensión, mareo. Si el dolor no cede 5 minutos después de una dosis: llamar al 112.","**Nunca con sildenafilo o tadalafilo**: hipotensión grave."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"La nitroglicerina siempre a mano durante la sesión."},
+{id:"digoxina", s:"cv", n:"Digoxina", ej:["Digoxina"],
+ mec:"Inhibe la bomba Na⁺/K⁺ del miocito (más calcio, más fuerza) y aumenta el tono vagal (frena el nodo AV).",
+ porque:"Controla la frecuencia en la fibrilación auricular y da fuerza al corazón en la insuficiencia cardiaca.",
+ rend:0, rendT:"Frena bien la FC en reposo, pero poco en esfuerzo: el ejercicio retira el tono vagal.", riesgo:3,
+ ejer:["Margen estrecho: náuseas, confusión, visión amarillenta, arritmias.","**Más tóxica si baja el potasio**: sudor abundante + diurético o deshidratación."],
+ ama:"ok", amaT:"Permitida.",
+ hacer:"En fibrilación auricular, la FC puede dispararse durante la sesión: vigilar síntomas."},
+{id:"estatinas", s:"cv", n:"Estatinas", ej:["Atorvastatina","Rosuvastatina","Simvastatina"],
+ mec:"Inhiben la **HMG-CoA reductasa** hepática: el hígado capta más LDL de la sangre.",
+ porque:"Bajan el colesterol LDL un 30-50 % y estabilizan la placa de ateroma: menos infartos e ictus.",
+ rend:0, rendT:"No afectan al rendimiento en la mayoría; algunos notan más molestias musculares.", riesgo:1,
+ ejer:["Más molestias musculares con esfuerzos intensos o excéntricos no habituales.","Dolor desproporcionado, debilidad u **orina oscura**: consultar (rabdomiólisis)."],
+ ama:"ok", amaT:"Permitidas.",
+ hacer:"Unas agujetas no justifican dejar la estatina: estatina + buena forma física es la combinación con menor mortalidad."},
+{id:"antiagregantes", s:"cv", n:"Antiagregantes", ej:["Ácido acetilsalicílico (dosis bajas)","Clopidogrel","Ticagrelor"],
+ mec:"Impiden que las plaquetas se activen y se unan: la aspirina bloquea la COX-1 plaquetaria de forma irreversible; los demás, el receptor del ADP.",
+ porque:"Evitan que una placa rota forme un trombo: angina, infarto, ictus y tras un stent.",
+ rend:0, rendT:"Neutros para el rendimiento.", riesgo:2,
+ ejer:["Más hematomas y sangrado con golpes y caídas: prudencia en deportes de contacto.","Evitar AINE: suman riesgo de sangrado digestivo."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Nunca suspenderlos por una competición: riesgo de trombosis del stent."},
+
+/* ---------------- SNC ---------------- */
+{id:"estimulantes", s:"snc", n:"Estimulantes", ej:["Anfetamina","Metilfenidato","Modafinilo","Cocaína","Efedrina"],
+ mec:"Aumentan la **dopamina y la noradrenalina** en la sinapsis (liberación o bloqueo de la recaptación).",
+ porque:"Más alerta, menos sensación de fatiga y más agresividad: **apagan la alarma** que el cerebro usa para proteger al cuerpo.",
+ rend:2, rendT:"Mejoran el rendimiento al retrasar la fatiga central.", riesgo:3,
+ ejer:["**Golpe de calor**, arritmias, hipertensión, muerte súbita (Mont Ventoux, 1967).","Dependencia; insomnio y ansiedad."],
+ ama:"comp", amaT:"**Prohibidos en competición (S6).** Metilfenidato para el TDAH: AUT. Cafeína, nicotina, bupropión y fenilefrina: no prohibidos, en programa de seguimiento.",
+ hacer:"Desconfiar de los preentrenos y quemagrasas: pueden contener estimulantes no declarados."},
+{id:"cafeina", s:"snc", n:"Cafeína", ej:["Cafeína"],
+ mec:"Antagonista de los receptores de **adenosina**: más alerta y menos percepción del esfuerzo.",
+ porque:"La adenosina se acumula con la vigilia y el esfuerzo y «frena» al cerebro. La cafeína quita ese freno.",
+ rend:1, rendT:"Ayuda ergogénica con evidencia, sobre todo en resistencia (unos 3-6 mg/kg).", riesgo:1,
+ ejer:["Taquicardia, nerviosismo, molestias digestivas.","Tomada por la tarde empeora el sueño y la recuperación."],
+ ama:"ok", amaT:"**Permitida**: salió de la Lista en 2004 y está en el programa de seguimiento.",
+ hacer:"Sumar toda la cafeína del día: café, geles, bebidas energéticas y preentrenos."},
+{id:"cannabinoides", s:"snc", n:"Cannabinoides", ej:["THC (cannabis)","CBD"],
+ mec:"El THC activa los receptores **CB1** cerebrales.",
+ porque:"Relaja y reduce la ansiedad, pero empeora la coordinación, el tiempo de reacción y la memoria.",
+ rend:-1, rendT:"Ergolítico en casi todos los deportes.", riesgo:2,
+ ejer:["Peor coordinación y reflejos: más lesiones.","Taquicardia; dependencia."],
+ ama:"comp", amaT:"THC: **prohibido en competición (S8)**, umbral urinario 150 ng/mL. **CBD puro: permitido** (los aceites pueden llevar THC).",
+ hacer:"Los productos de CBD no están controlados: pueden dar positivo por THC."},
+{id:"opioides_snc", s:"dolor", n:"Opioides", ej:["Morfina","Fentanilo","Oxicodona","Tramadol","Codeína"],
+ mec:"Agonistas del receptor **μ**: frenan la transmisión del dolor en la médula y activan las vías descendentes.",
+ porque:"Analgesia potente para el dolor agudo intenso, pero por el mismo receptor: sedación, estreñimiento y depresión respiratoria.",
+ rend:-1, rendT:"Sedación y menos reflejos; enmascaran el dolor de una lesión.", riesgo:3,
+ ejer:["Somnolencia, mareo, náuseas: **caídas** (tramadol en el pelotón).","Depresión respiratoria, más con alcohol o benzodiacepinas. Tolerancia y dependencia.","Tramadol + ISRS: síndrome serotoninérgico."],
+ ama:"comp", amaT:"**Prohibidos en competición (S7)**, incluido el **tramadol desde 2024**. Codeína: en seguimiento (se metaboliza a morfina).",
+ hacer:"El dolor intenso se trata, pero lejos de la competición y con supervisión médica."},
+{id:"antidepresivos", s:"snc", n:"Antidepresivos", ej:["Sertralina","Escitalopram","Venlafaxina","Amitriptilina","Mirtazapina"],
+ mec:"Aumentan la **serotonina** y/o la **noradrenalina** en la sinapsis (bloqueo de la recaptación o de receptores).",
+ porque:"La química cambia en horas, pero el efecto tarda semanas. El ejercicio es en sí un tratamiento eficaz de la depresión leve-moderada.",
+ rend:0, rendT:"Sin efecto ergogénico; el bupropión en ambiente caluroso permitió rendir más elevando la temperatura corporal.", riesgo:2,
+ ejer:["ISRS: más **sangrado** con AINE; **hiponatremia**.","Tricíclicos: menos sudor (golpe de calor), taquicardia, peso.","IMAO + descongestionantes o preentrenos: crisis hipertensiva."],
+ ama:"ok", amaT:"Permitidos. **Bupropión**: en programa de seguimiento.",
+ hacer:"La lesión y la retirada deportiva son momentos de riesgo de depresión."},
+{id:"benzodiacepinas", s:"snc", n:"Ansiolíticos e hipnóticos", ej:["Diazepam","Lorazepam","Alprazolam","Zolpidem","Melatonina"],
+ mec:"Las benzodiacepinas **potencian al GABA** en el receptor GABA-A: el gran freno del cerebro.",
+ porque:"Reducen la ansiedad y ayudan a dormir, pero también la vigilancia, la coordinación y el tono muscular.",
+ rend:-2, rendT:"Ergolíticos: peor tiempo de reacción, coordinación y precisión.", riesgo:2,
+ ejer:["**Efecto resaca** al día siguiente con las de vida media larga.","Con alcohol u opioides: depresión respiratoria.","Tolerancia, dependencia y abstinencia si se retiran de golpe."],
+ ama:"ok", amaT:"Permitidos. **Melatonina** también (útil en el jet lag).",
+ hacer:"Para la ansiedad competitiva, primero psicología deportiva; nada nuevo la noche antes de competir."},
+{id:"antiepilepticos", s:"snc", n:"Antiepilépticos", ej:["Levetiracetam","Valproato","Lamotrigina","Carbamazepina","Topiramato"],
+ mec:"Frenan la excitación neuronal: bloquean canales de sodio o calcio, potencian el GABA o reducen el glutamato.",
+ porque:"La epilepsia es una balanza volcada hacia la excitación. El ejercicio rara vez provoca crisis: la falta de sueño, el alcohol y olvidar la dosis, sí.",
+ rend:-1, rendT:"Mareo, diplopía y somnolencia pueden empeorar el equilibrio y la precisión.", riesgo:2,
+ ejer:["Topiramato y zonisamida: **menos sudor** (calor).","Carbamazepina y oxcarbazepina: hiponatremia.","Valproato: aumento de peso; los inductores empeoran la salud ósea."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Deportes acuáticos, siempre acompañado. Ante una crisis: proteger la cabeza y llamar al 112 si dura más de 5 minutos."},
+{id:"antipsicoticos", s:"snc", n:"Antipsicóticos", ej:["Haloperidol","Risperidona","Olanzapina","Quetiapina","Aripiprazol"],
+ mec:"Bloquean los receptores de **dopamina D2** (y de serotonina, los atípicos).",
+ porque:"Reducen los síntomas psicóticos, pero el bloqueo D2 en el hipotálamo y en los ganglios basales altera la termorregulación y el movimiento.",
+ rend:-1, rendT:"Sedación, rigidez e inquietud (acatisia) empeoran la coordinación.", riesgo:3,
+ ejer:["**Golpe de calor** y síndrome neuroléptico maligno, más con deshidratación.","Aumento de peso y síndrome metabólico: el ejercicio es parte del tratamiento.","Hipotensión ortostática; QT largo con algunos."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Hidratación y prudencia con el calor; programas de ejercicio supervisados."},
+{id:"antiparkinson", s:"snc", n:"Antiparkinsonianos", ej:["Levodopa + carbidopa","Pramipexol","Ropinirol","Rasagilina"],
+ mec:"Reponen la **dopamina** del estriado (levodopa), la imitan (agonistas) o frenan su degradación (IMAO-B).",
+ porque:"En el Parkinson falta dopamina: el paciente tiene el freno del movimiento pisado. El fármaco abre una ventana en la que moverse es más fácil.",
+ rend:1, rendT:"En fase ON el mismo ejercicio rinde mucho más.", riesgo:2,
+ ejer:["Entrenar **1-2 h después de la levodopa** (fase ON) y tomar la proteína después.","Hipotensión ortostática, discinesias, caídas; somnolencia súbita con los agonistas."],
+ ama:"ok", amaT:"Permitidos. La selegilina se transforma en derivados anfetamínicos: consultar si se compite.",
+ hacer:"Ejercicio aeróbico, de fuerza y de equilibrio: es un tratamiento más del Parkinson."},
+{id:"anestesicos", s:"snc", n:"Anestésicos generales", ej:["Propofol","Sevoflurano","Ketamina","Óxido nitroso"],
+ mec:"Deprimen el SNC de forma reversible: potencian el GABA o bloquean el NMDA.",
+ porque:"Producen inconsciencia; la anestesia moderna los combina con opioides y relajantes musculares.",
+ rend:-1, rendT:"Efecto residual las primeras 24 h.", riesgo:2,
+ ejer:["24 h sin conducir, entrenar ni actividades de riesgo.","Antecedentes familiares de **hipertermia maligna**: avisar al anestesista.","Óxido nitroso recreativo: déficit de B12 y lesión neurológica."],
+ ama:"ok", amaT:"Permitidos (uso clínico).",
+ hacer:"La vuelta al entrenamiento la marca la cirugía, no la anestesia."},
+
+/* ---------------- DOLOR ---------------- */
+{id:"paracetamol", s:"dolor", n:"Paracetamol", ej:["Paracetamol"],
+ mec:"Inhibe la COX sobre todo en el **SNC**: analgésico y antipirético, sin efecto antiinflamatorio.",
+ porque:"No toca las prostaglandinas que protegen el estómago y el riñón: es el analgésico más seguro para el deportista.",
+ rend:0, rendT:"Neutro.", riesgo:1,
+ ejer:["Máximo 3-4 g/día; hígado: cuidado con el alcohol y con el paracetamol «escondido» en antigripales."],
+ ama:"ok", amaT:"Permitido.",
+ hacer:"Primera opción para el dolor durante una prueba larga."},
+{id:"aine", s:"dolor", n:"AINE", ej:["Ibuprofeno","Naproxeno","Dexketoprofeno","Diclofenaco","Diclofenaco gel"],
+ mec:"Bloquean la **ciclooxigenasa** (COX-1 y COX-2): menos prostaglandinas.",
+ porque:"La COX-2 produce inflamación, dolor y fiebre; la COX-1 protege el estómago y mantiene abierta la arteria del riñón. Por eso alivian… y por eso dañan.",
+ rend:-1, rendT:"No mejoran el rendimiento ni evitan las agujetas; usados semanas pueden **retrasar la reparación** de hueso, tendón y ligamento.", riesgo:3,
+ ejer:["AINE «preventivo» en pruebas largas con calor: **lesión renal aguda** e hiponatremia.","Lesión digestiva: el esfuerzo ya reduce el flujo intestinal.","AINE + IECA/ARA II + diurético: triple amenaza renal."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Nunca «por si acaso»; mejor gel tópico en lesiones localizadas y pocos días."},
+{id:"metamizol", s:"dolor", n:"Metamizol", ej:["Metamizol"],
+ mec:"Analgésico y antipirético potente, con efecto espasmolítico.",
+ porque:"Útil en el dolor intenso y los cólicos; con poco daño gástrico.",
+ rend:0, rendT:"Neutro.", riesgo:2,
+ ejer:["RAM rara pero grave: **agranulocitosis** (fiebre, dolor de garganta).","Hipotensión si se inyecta rápido."],
+ ama:"ok", amaT:"Permitido.",
+ hacer:"Fiebre o dolor de garganta tomando metamizol: suspender y consultar."},
+{id:"corticoides", s:"dolor", n:"Glucocorticoides (sistémicos e infiltrados)", ej:["Prednisona","Dexametasona","Betametasona","Triamcinolona"],
+ mec:"Actúan sobre un receptor nuclear y frenan la **fosfolipasa A₂**: bloquean a la vez prostaglandinas y leucotrienos.",
+ porque:"Antiinflamatorio muy potente, más que los AINE, porque actúa antes en la cascada.",
+ rend:1, rendT:"Pueden mejorar la recuperación y el bienestar a corto plazo; por eso se regulan.", riesgo:3,
+ ejer:["Uso repetido: pérdida de **masa muscular**, tendón más frágil, osteoporosis, hiperglucemia.","Infiltración: alivio rápido, pero en algunas tendinopatías peor evolución y riesgo de **rotura**.","Tras más de 2-3 semanas, retirada progresiva."],
+ ama:"limite", amaT:"**S9, prohibidos en competición por vía oral, rectal e inyectable** (también infiltraciones). Lavado orientativo: 3 días por vía oral, rectal o infiltración local (10 días para algunos, como la triamcinolona); 5 días por vía i.m. (hasta 60 con el acetónido de triamcinolona). Inhalados y tópicos: permitidos.",
+ hacer:"Planificar cualquier infiltración con el médico respetando los periodos de lavado."},
+{id:"neuropatico", s:"dolor", n:"Fármacos del dolor neuropático", ej:["Pregabalina","Gabapentina","Duloxetina","Amitriptilina"],
+ mec:"Reducen la excitabilidad del nervio (canales de calcio) o refuerzan las vías descendentes que frenan el dolor.",
+ porque:"El dolor neuropático (quema, hormiguea, descargas) nace en el nervio: AINE y opioides apenas sirven.",
+ rend:-1, rendT:"Somnolencia y mareo empeoran la coordinación.", riesgo:2,
+ ejer:["Somnolencia, mareo, aumento de peso.","Pregabalina: potencial de abuso."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Siempre junto a fisioterapia y ejercicio."},
+
+/* ---------------- DIGESTIVO ---------------- */
+{id:"ibp", s:"dig", n:"Inhibidores de la bomba de protones (IBP)", ej:["Omeprazol","Pantoprazol","Esomeprazol","Lansoprazol"],
+ mec:"Profármacos que se activan en la célula parietal y bloquean de forma **irreversible la bomba H⁺/K⁺**: frenan el ácido sea cual sea el estímulo.",
+ porque:"Son los antisecretores más potentes: reflujo, úlcera y protección gástrica cuando hay riesgo con AINE.",
+ rend:0, rendT:"Neutros.", riesgo:1,
+ ejer:["Uso prolongado: **hipomagnesemia**, déficit de **B12**, más riesgo de **fracturas** y de diarrea por C. difficile.","Inhibidores enzimáticos: interacciones."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"El «protector» no hace seguro el AINE para el riñón: solo protege el estómago."},
+{id:"antih2", s:"dig", n:"Antihistamínicos H2", ej:["Famotidina","Cimetidina"],
+ mec:"Bloquean el receptor **H2** de la célula parietal frente a la histamina.",
+ porque:"Reducen el ácido, sobre todo el nocturno. La ranitidina se retiró en 2019-2020; la cimetidina apenas se usa por sus RAM e interacciones.",
+ rend:0, rendT:"Neutros.", riesgo:1,
+ ejer:["RAM poco frecuentes con famotidina (cefalea, confusión)."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"Mejor por la noche, para cubrir la secreción ácida nocturna."},
+{id:"antiacidos", s:"dig", n:"Antiácidos", ej:["Almagato","Magaldrato","Hidróxido de aluminio","Carbonato cálcico","Bicarbonato sódico"],
+ mec:"Neutralizan el ácido ya secretado (pH 4-5).",
+ porque:"Alivio rápido pero breve. El aluminio estriñe y el magnesio da diarrea: por eso se combinan.",
+ rend:0, rendT:"Neutros. El **bicarbonato sódico** se usa además como ayuda ergogénica: tampona el ácido en esfuerzos de alta intensidad de 1-7 minutos.", riesgo:1,
+ ejer:["Bicarbonato: molestias digestivas, alcalosis, sobrecarga de sodio.","Separarlos de otros fármacos: reducen su absorción."],
+ ama:"ok", amaT:"Permitidos, también el bicarbonato sódico como suplemento.",
+ hacer:"Si se usa bicarbonato como suplemento, probarlo en entrenamiento, nunca por primera vez el día de la competición."},
+{id:"sro", s:"dig", n:"Rehidratación oral", ej:["Sueros de rehidratación oral (fórmula OMS)"],
+ mec:"Solución de glucosa, sodio, potasio y bicarbonato: la **glucosa y el sodio se absorben juntos** (cotransporte) y arrastran el agua.",
+ porque:"No trata la causa de la diarrea, repone lo perdido. El mismo principio explica la composición de las bebidas deportivas.",
+ rend:1, rendT:"Restablecer la hidratación devuelve el rendimiento perdido por deshidratación.", riesgo:1,
+ ejer:["Diarrea del corredor y gastroenteritis: lo primero es reponer agua y sales."],
+ ama:"ok", amaT:"Permitidos.",
+ hacer:"A sorbos pequeños y frecuentes; los refrescos no sirven."},
+{id:"loperamida", s:"dig", n:"Antidiarreicos opioides", ej:["Loperamida","Racecadotrilo"],
+ mec:"La loperamida actúa sobre receptores **μ del intestino** sin entrar en el cerebro: frena el tránsito y aumenta la absorción de agua.",
+ porque:"Tratamiento sintomático de la diarrea. No se usa en diarreas infecciosas con fiebre o sangre: retendría el germen.",
+ rend:0, rendT:"Neutra a dosis habituales.", riesgo:1,
+ ejer:["Estreñimiento y cólicos con el uso repetido.","No en menores de 2 años."],
+ ama:"ok", amaT:"Permitida: a dosis terapéuticas no actúa en el SNC.",
+ hacer:"Útil puntualmente en viajes; si hay fiebre o sangre, consultar."},
+{id:"laxantes", s:"dig", n:"Laxantes", ej:["Plantago ovata","Lactulosa","Macrogol (PEG)","Sales de magnesio","Bisacodilo","Sen"],
+ mec:"Aumentan la masa fecal (fibra), retienen agua en la luz (osmóticos), ablandan (lubricantes) o estimulan la mucosa (estimulantes).",
+ porque:"El estreñimiento es un síntoma; primero ejercicio, fibra y líquidos. La fibra es la primera elección y necesita agua.",
+ rend:-1, rendT:"Usados para perder peso: deshidratación y pérdida de potasio.", riesgo:2,
+ ejer:["Estimulantes: dolor cólico, pérdida de K⁺ y Na⁺, deshidratación.","El abuso para «dar el peso» puede indicar un trastorno de la conducta alimentaria."],
+ ama:"ok", amaT:"Permitidos (a diferencia de los diuréticos, que están prohibidos siempre).",
+ hacer:"Detectar el uso de laxantes para controlar el peso en deportes por categorías y estéticos."}
+];
+
+/* Escenarios para el juego «¿Permitido?» */
+var JUEGO = [
+ {s:"Dos inhalaciones de salbutamol (200 µg) antes de entrenar, en una deportista asmática.", c:"limite", e:"Permitido: está por debajo de 1600 µg/24 h y de 600 µg en 8 h."},
+ {s:"Terbutalina inhalada para el asma de esfuerzo.", c:"siempre", e:"Solo salbutamol, formoterol, salmeterol y vilanterol tienen excepción. La terbutalina está prohibida siempre (S3) salvo AUT."},
+ {s:"Un antigripal con pseudoefedrina el día de la carrera.", c:"comp", e:"La pseudoefedrina está prohibida en competición por encima de 150 µg/mL en orina (S6)."},
+ {s:"Espray nasal de oximetazolina durante un catarro.", c:"ok", e:"Los derivados imidazólicos de uso tópico están permitidos."},
+ {s:"Hidroclorotiazida para la hipertensión de un ciclista.", c:"siempre", e:"Diuréticos: prohibidos siempre (S5). Necesita AUT o cambiar de antihipertensivo (IECA, ARA II, amlodipino)."},
+ {s:"Amlodipino para la hipertensión de un remero.", c:"ok", e:"Antagonistas del calcio: permitidos y bien tolerados en deportistas."},
+ {s:"Propranolol a un tirador olímpico con temblor.", c:"deporte", e:"P1: en tiro, tiro con arco y subacuáticas, prohibido siempre. En un corredor no estaría prohibido."},
+ {s:"Bisoprolol en un maratoniano con fibrilación auricular.", c:"ok", e:"Los betabloqueantes solo están prohibidos en deportes concretos de precisión. En el maratón, empeoran el rendimiento."},
+ {s:"Infiltración de corticoide en el hombro dos días antes de un partido.", c:"limite", e:"S9: inyectados están prohibidos en competición; el lavado general es de 3 días. A 2 días, riesgo de positivo."},
+ {s:"Budesonida inhalada a diario para el asma.", c:"ok", e:"Los corticoides inhalados están permitidos."},
+ {s:"Tramadol para el dolor de una caída, antes de la etapa.", c:"comp", e:"Narcótico (S7), prohibido en competición desde 2024."},
+ {s:"Ibuprofeno para un esguince.", c:"ok", e:"Los AINE no están prohibidos, aunque tienen riesgos renales y digestivos."},
+ {s:"Paracetamol durante una prueba de ultrafondo.", c:"ok", e:"Permitido; es el analgésico preferible durante una prueba larga."},
+ {s:"Cafeína en un gel durante la carrera.", c:"ok", e:"La cafeína está permitida desde 2004 (programa de seguimiento)."},
+ {s:"Metilfenidato para el TDAH de un futbolista.", c:"comp", e:"Estimulante (S6), prohibido en competición: necesita AUT."},
+ {s:"Un aceite de CBD para dormir.", c:"ok", e:"El CBD puro está permitido; el problema es que muchos productos llevan THC, prohibido en competición."},
+ {s:"Cannabis fumado el día antes de un partido.", c:"comp", e:"THC (S8): prohibido en competición, umbral 150 ng/mL."},
+ {s:"Sertralina por una depresión.", c:"ok", e:"Los antidepresivos no están prohibidos (el bupropión está en seguimiento)."},
+ {s:"Lorazepam para dormir la noche antes de competir.", c:"ok", e:"Permitido, pero ergolítico: efecto resaca al día siguiente."},
+ {s:"Adrenalina intramuscular en una anafilaxia durante un partido.", c:"limite", e:"Se administra siempre: la AUT puede pedirse después (retroactiva)."},
+ {s:"Furosemida para perder 2 kg antes del pesaje.", c:"siempre", e:"Diurético: prohibido siempre (S5), y peligroso: deshidratación y calor."},
+ {s:"Laxantes para dar el peso en judo.", c:"ok", e:"No están prohibidos, pero deshidratan y bajan el potasio; pueden ocultar un trastorno alimentario."},
+ {s:"Omeprazol con un AINE en un veterano.", c:"ok", e:"Los IBP están permitidos."},
+ {s:"Codeína en un jarabe para la tos dos días antes de competir.", c:"limite", e:"La codeína está en seguimiento, pero se transforma en morfina, prohibida en competición por encima de 1 µg/mL."},
+ {s:"Formoterol inhalado, 12 µg dos veces al día.", c:"limite", e:"Permitido: por debajo de 54 µg/24 h."},
+ {s:"Bicarbonato sódico antes de una prueba de 800 m.", c:"ok", e:"Permitido: es una ayuda ergogénica (tampón) con evidencia."},
+ {s:"Prednisona oral 5 días antes de una competición.", c:"limite", e:"Por vía oral está prohibida en competición; el lavado es de 3 días (10 con triamcinolona). A 5 días, fuera del periodo de lavado."}
+];
+
+/* Mapa de cada sistema: dónde actúa cada grupo */
+var MAPA = {
+ sna:[["α1","Vasos y esfínteres",["alfa1","alfabloq"],"Tensión arterial; mareo al parar"],
+      ["β1","Corazón: frecuencia y fuerza",["betabloq","adrenalina"],"La FC del esfuerzo"],
+      ["β2","Bronquio, vasos del músculo, glucosa",["saba","laba"],"Broncodilatación; temblor"],
+      ["Muscarínico","Corazón, bronquio y glándulas (también las del sudor)",["colinergicos","anticolinergicos","lama"],"Sudor y termorregulación"]],
+ cv:[["Volumen","El riñón decide cuánta sal y agua se queda",["diureticos","ieca"],"Hidratación, potasio y calor"],
+     ["Corazón","Frecuencia y fuerza de cada latido",["betabloq","nodhp","digoxina"],"FC engañosa: esfuerzo percibido"],
+     ["Vasos","Lo abiertas que están arteriolas y venas",["dhp","ieca","nitratos","alfabloq"],"Hipotensión tras el esfuerzo"],
+     ["Placa y trombo","Aterosclerosis y plaquetas",["estatinas","antiagregantes"],"Molestias musculares y sangrado con golpes"]],
+ resp:[["β2 abre","Músculo liso bronquial",["saba","laba","teofilina"],"Rescate y asma de esfuerzo"],
+       ["M3 cierra","Tono vagal broncoconstrictor",["lama"],"Sobre todo en la EPOC"],
+       ["Inflamación","El fondo del asma",["ci","antileuco","biologicos"],"El control que evita las crisis"],
+       ["Centro de la tos","Bulbo raquídeo",["antitusigenos"],"Somnolencia; codeína → morfina"]],
+ dolor:[["Lesión","Prostaglandinas que sensibilizan el nociceptor",["aine","metamizol","corticoides"],"Riñón, estómago y reparación del tejido"],
+        ["Médula","Transmisión de la señal",["opioides_snc"],"Sedación; prohibidos en competición"],
+        ["Cerebro","Percepción del dolor",["paracetamol"],"Primera opción en pruebas largas"],
+        ["Nervio dañado","Dolor neuropático",["neuropatico"],"Somnolencia y mareo"]],
+ snc:[["Dopamina y noradrenalina","Motivación y alerta",["estimulantes","antiparkinson","antipsicoticos"],"Fatiga central y golpe de calor"],
+      ["Adenosina","El freno del cansancio",["cafeina"],"Sueño y recuperación"],
+      ["Serotonina","Estado de ánimo",["antidepresivos"],"Sangrado, sodio y calor"],
+      ["GABA","El gran freno del cerebro",["benzodiacepinas","antiepilepticos","anestesicos"],"Reacción, coordinación y equilibrio"],
+      ["CB1","Receptor cannabinoide",["cannabinoides"],"Coordinación; el CBD está permitido"]],
+ dig:[["Receptor H2","Histamina sobre la célula parietal",["antih2"],"Secreción ácida nocturna"],
+      ["Bomba H⁺/K⁺","Paso final de la secreción de ácido",["ibp"],"Magnesio, B12 y hueso con el uso prolongado"],
+      ["Ácido ya secretado","Luz del estómago",["antiacidos"],"El bicarbonato como ayuda ergogénica"],
+      ["Agua y sodio","Absorción y motilidad intestinal",["sro","loperamida"],"Diarrea del corredor"],
+      ["Tránsito del colon","Estreñimiento",["laxantes"],"Abuso para dar el peso"]]
+};
+
+</script>
+<script>
+(function(){
+"use strict";
+var app = document.getElementById("app");
+function md(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>"); }
+function cv(k){ return "var(--"+k+")"; }
+function badge(k){ return '<span class="ama" style="--a:'+cv(k)+'">'+AMA[k].n+'</span>'; }
+function bySys(s){ return G.filter(function(g){ return g.s===s; }); }
+function grp(id){ for(var i=0;i<G.length;i++) if(G[i].id===id) return G[i]; }
+function foot(){ return '<footer>Material de apoyo de Farmacología (Grado en CAFyD, UPNA). Estado de la Lista de Prohibiciones según la versión 2026 de la AMA: cambia cada 1 de enero, compruébalo siempre en NoDopApp o en la web de la CELAD.</footer>'; }
+
+/* ---------- cuerpo humano ---------- */
+function bodySVG(){
+  var S = '<svg viewBox="0 0 320 640" role="group" aria-label="Cuerpo humano: pulsa un órgano para ver sus fármacos" id="cuerpo">';
+  // silueta
+  S += '<g style="fill:var(--skin)">'+
+   '<circle cx="160" cy="62" r="42"/><rect x="145" y="100" width="30" height="24" rx="8"/>'+
+   '<path d="M98 130 Q160 112 222 130 L234 250 Q238 302 214 352 L206 374 Q160 390 114 374 L106 352 Q82 302 86 250 Z"/>'+
+   '<path d="M100 134 Q82 138 78 164 L58 300 Q54 322 64 334 L78 336 Q88 322 90 300 L108 182 Z"/>'+
+   '<path d="M220 134 Q238 138 242 164 L262 300 Q266 322 256 334 L242 336 Q232 322 230 300 L212 182 Z"/>'+
+   '<circle cx="70" cy="348" r="13"/><circle cx="250" cy="348" r="13"/>'+
+   '<path d="M112 366 Q134 384 157 378 L152 520 L148 604 L122 604 L118 520 Z"/>'+
+   '<path d="M208 366 Q186 384 163 378 L168 520 L172 604 L198 604 L202 520 Z"/>'+
+   '<ellipse cx="134" cy="614" rx="18" ry="9"/><ellipse cx="186" cy="614" rx="18" ry="9"/></g>';
+  // SNA: médula y cadena ganglionar (debajo de los órganos)
+  S += '<g class="hot" data-s="sna" tabindex="0" role="button" aria-label="Nervios autónomos: sistema nervioso autónomo">'+
+   '<rect x="138" y="92" width="44" height="282" fill="transparent"/>'+
+   '<g class="o"><line x1="160" y1="88" x2="160" y2="372" style="stroke:var(--sna);stroke-width:5;stroke-linecap:round"/>';
+  for(var y=132;y<=352;y+=22){ S += '<circle cx="148" cy="'+y+'" r="3.4" style="fill:var(--sna)"/><circle cx="172" cy="'+y+'" r="3.4" style="fill:var(--sna)"/>'; }
+  S += '<path d="M148 176 Q128 172 118 170 M172 198 Q186 200 192 204 M172 264 Q184 262 190 262 M148 300 Q138 304 132 306" style="stroke:var(--sna);stroke-width:1.6;fill:none"/></g></g>';
+  // vasos (forman parte de cardiovascular)
+  var vas = '<path d="M166 232 L166 362 M166 362 Q150 380 140 420 L136 590 M166 362 Q176 380 182 420 L186 590 M150 140 Q112 150 98 196 L74 330 M170 140 Q208 150 222 196 L246 330" style="stroke:var(--cv);stroke-width:2.2;fill:none;opacity:.55"/>';
+  // cerebro
+  S += '<g class="hot" data-s="snc" tabindex="0" role="button" aria-label="Cerebro: sistema nervioso central"><g class="o">'+
+   '<path d="M130 64 Q128 30 160 28 Q192 30 190 64 Q188 88 160 90 Q132 88 130 64 Z" style="fill:var(--snc)"/>'+
+   '<path d="M160 32 L160 88 M140 46 Q150 52 144 62 Q138 72 148 78 M180 46 Q170 52 176 62 Q182 72 172 78" style="stroke:var(--card);stroke-width:2.2;fill:none;opacity:.75"/></g></g>';
+  // pulmones
+  S += '<g class="hot" data-s="resp" tabindex="0" role="button" aria-label="Pulmones: respiratorio"><g class="o">'+
+   '<path d="M150 148 Q120 146 112 190 Q106 232 118 248 Q138 254 150 238 Z" style="fill:var(--resp)"/>'+
+   '<path d="M170 148 Q200 146 208 190 Q214 232 202 248 Q182 254 170 238 Z" style="fill:var(--resp)"/>'+
+   '<path d="M160 126 L160 150 M160 150 L146 166 M160 150 L174 166" style="stroke:var(--resp);stroke-width:5;fill:none;stroke-linecap:round"/></g></g>';
+  // corazón, vasos y riñones
+  S += '<g class="hot" data-s="cv" tabindex="0" role="button" aria-label="Corazón, vasos y riñón: cardiovascular"><g class="o">'+vas+
+   '<path d="M172 198 C164 184 146 190 152 208 C156 220 170 230 174 238 C180 228 196 218 198 206 C202 190 184 184 178 196 Z" style="fill:var(--cv)"/>'+
+   '<ellipse cx="134" cy="292" rx="10" ry="16" style="fill:var(--cv);opacity:.85"/><ellipse cx="186" cy="292" rx="10" ry="16" style="fill:var(--cv);opacity:.85"/></g></g>';
+  // estómago e intestino
+  S += '<g class="hot" data-s="dig" tabindex="0" role="button" aria-label="Estómago e intestino: digestivo"><g class="o">'+
+   '<path d="M168 252 Q198 246 200 268 Q200 292 176 294 Q158 294 156 282 Q170 280 174 270 Q170 262 164 258 Z" style="fill:var(--dig)"/>'+
+   '<rect x="128" y="306" width="64" height="48" rx="16" style="fill:var(--dig);opacity:.8"/>'+
+   '<path d="M138 318 Q150 312 160 318 T182 318 M138 330 Q150 324 160 330 T182 330 M138 342 Q150 336 160 342 T182 342" style="stroke:var(--card);stroke-width:2;fill:none;opacity:.7"/></g></g>';
+  // músculos y articulaciones
+  S += '<g class="hot" data-s="dolor" tabindex="0" role="button" aria-label="Músculos y articulaciones: dolor e inflamación"><g class="o">'+
+   '<ellipse cx="137" cy="440" rx="15" ry="44" style="fill:var(--dolor);opacity:.85"/><ellipse cx="183" cy="440" rx="15" ry="44" style="fill:var(--dolor);opacity:.85"/>'+
+   '<circle cx="135" cy="504" r="10" style="fill:var(--dolor)"/><circle cx="185" cy="504" r="10" style="fill:var(--dolor)"/>'+
+   '<circle cx="96" cy="250" r="7" style="fill:var(--dolor)"/><circle cx="224" cy="250" r="7" style="fill:var(--dolor)"/></g></g>';
+  return S+'</svg>';
+}
+function home(){
+  var h = '<section class="hero"><div class="bodycard">'+bodySVG()+'</div><div>';
+  h += '<h1>Fármacos y ejercicio</h1><p class="lead">Pulsa un órgano y descubre qué fármacos actúan en él, por qué lo hacen, cómo cambian el rendimiento y la seguridad durante el ejercicio y si están permitidos en competición.</p>';
+  h += '<div class="peek" id="peek" style="--c:var(--ink)"><h2>Elige un órgano</h2><p>Pasa el cursor o el dedo por el cuerpo: cada color es un sistema. También puedes entrar desde la lista.</p></div>';
+  h += '<div class="syslist">';
+  Object.keys(SIS).forEach(function(k){ var S=SIS[k]; h += '<a href="#sis-'+k+'" data-s="'+k+'" style="--c:'+cv(S.c)+'"><i></i><span><b>'+S.n+'</b><small>'+S.organo+' · '+bySys(k).length+' grupos</small></span></a>'; });
+  h += '</div><div class="tools"><a href="#semaforo"><b>Semáforo AMA</b><span>Todos los grupos según la Lista de Prohibiciones 2026.</span></a><a href="#juego"><b>¿Permitido?</b><span>Pon a prueba tu criterio con casos reales de deportistas.</span></a><a href="#fund-ladme"><b>Fundamentos</b><span>LADME, farmacodinamia, vías e interacciones aplicadas al ejercicio.</span></a></div>';
+  h += '<div class="legend">'+Object.keys(AMA).map(badge).join("")+'</div></div></section>'+foot();
+  return h;
+}
+function wireHome(){
+  var svg = document.getElementById("cuerpo"), peek = document.getElementById("peek");
+  function show(k){
+    var S = SIS[k]; if(!S) return;
+    peek.style.setProperty("--c", cv(S.c));
+    var gs = bySys(k), counts = {};
+    gs.forEach(function(g){ counts[g.ama]=(counts[g.ama]||0)+1; });
+    peek.innerHTML = '<h2>'+S.n+'</h2><p>'+md(S.idea)+'</p><p>'+Object.keys(counts).map(function(a){ return badge(a)+' '+counts[a]; }).join(" &nbsp; ")+'</p>';
+    svg.classList.add("dim");
+    Array.prototype.forEach.call(document.querySelectorAll(".hot,.syslist a"), function(e){ e.classList.toggle("on", e.getAttribute("data-s")===k); });
+  }
+  function clear(){ svg.classList.remove("dim"); Array.prototype.forEach.call(document.querySelectorAll(".hot.on,.syslist a.on"), function(e){ e.classList.remove("on"); }); }
+  Array.prototype.forEach.call(document.querySelectorAll(".hot"), function(e){
+    var k = e.getAttribute("data-s");
+    e.addEventListener("mouseenter", function(){ show(k); }); e.addEventListener("focus", function(){ show(k); });
+    e.addEventListener("mouseleave", clear); e.addEventListener("blur", clear);
+    e.addEventListener("click", function(){ location.hash = "sis-"+k; });
+    e.addEventListener("keydown", function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); location.hash = "sis-"+k; } });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".syslist a"), function(a){
+    a.addEventListener("mouseenter", function(){ show(a.getAttribute("data-s")); }); a.addEventListener("focus", function(){ show(a.getAttribute("data-s")); });
+    a.addEventListener("mouseleave", clear);
+  });
+}
+
+/* ---------- sistema ---------- */
+function bar5(v){ var h='<div class="bar5" aria-hidden="true">'; for(var i=-2;i<=2;i++){ var on = (v>0 && i>0 && i<=v) || (v<0 && i<0 && i>=v) || (v===0 && i===0); h += '<i class="'+(i===0?'mid':'')+'" style="'+(on?'background:'+(v>0?'var(--ok)':(v<0?'var(--siempre)':'var(--muted)')):'')+'"></i>'; } return h+'</div>'; }
+function bar3(r){ var h='<div class="bar3" aria-hidden="true">', col=['var(--ok)','var(--limite)','var(--siempre)'][r-1]; for(var i=1;i<=3;i++) h += '<i style="'+(i<=r?'background:'+col:'')+'"></i>'; return h+'</div>'; }
+var RT = {"-2":"Empeora mucho","-1":"Empeora","0":"Neutro","1":"Mejora algo","2":"Mejora claramente"}, RK = {1:"Riesgo bajo",2:"Riesgo moderado",3:"Riesgo alto"};
+function sistema(k){
+  var S = SIS[k]; if(!S) return nf();
+  var h = '<div style="--c:'+cv(S.c)+'"><section class="shead"><div class="crumbs"><a href="#inicio">Cuerpo</a> › '+S.organo+'</div><h1>'+S.n+'</h1><p class="idea">'+md(S.idea)+'</p><ul>'+S.claves.map(function(c){ return '<li>'+md(c)+'</li>'; }).join("")+'</ul></section>'+mapaHTML(k)+'<h2 style="font-size:1.7rem;margin:6px 0 12px;color:var(--c)">Fichas de los grupos</h2><div class="cards">';
+  bySys(k).forEach(function(g){
+    h += '<a class="gcard" href="#g-'+g.id+'"><h3>'+md(g.n)+'</h3><span class="ex">'+g.ej.slice(0,4).join(", ")+'</span><span>'+badge(g.ama)+'</span><div class="meters"><div class="meter"><small>Rendimiento: '+RT[g.rend]+'</small>'+bar5(g.rend)+'</div><div class="meter"><small>'+RK[g.riesgo]+' en el ejercicio</small>'+bar3(g.riesgo)+'</div></div></a>';
+  });
+  return h+'</div>'+foot()+'</div>';
+}
+function mapaHTML(k){
+  var M = MAPA[k]; if(!M) return "";
+  var h = '<section class="map"><h2>Dónde actúa cada grupo</h2><p>Diana fisiológica, grupos que actúan sobre ella (el color del punto indica su estado en la Lista AMA) y lo que hay que vigilar en el ejercicio.</p>';
+  M.forEach(function(r){
+    h += '<div class="mrow"><div class="mt"><b>'+r[0]+'</b><small>'+r[1]+'</small></div><div class="arr" aria-hidden="true">→</div><div class="mlinks">'+r[2].map(function(id){ var g=grp(id); return g?'<a href="#g-'+id+'" style="--a:'+cv(g.ama)+'" title="'+AMA[g.ama].n+'"><i></i>'+md(g.n)+'</a>':''; }).join("")+'</div><div class="arr" aria-hidden="true">→</div><div class="mw">'+md(r[3])+'</div></div>';
+  });
+  return h+'</section>';
+}
+
+/* ---------- ficha de grupo ---------- */
+function ficha(id){
+  var g = grp(id); if(!g) return nf();
+  var S = SIS[g.s], list = bySys(g.s), i = list.indexOf(g);
+  var h = '<div style="--c:'+cv(S.c)+'"><div class="fhead"><div class="crumbs"><a href="#inicio">Cuerpo</a> › <a href="#sis-'+g.s+'">'+S.n+'</a></div><h1>'+md(g.n)+'</h1><div class="chips">'+g.ej.map(function(e){ return '<span>'+md(e)+'</span>'; }).join("")+'</div></div>';
+  h += '<div class="dials">';
+  h += '<div class="dial"><h3>Rendimiento</h3><div class="scale"><b style="left:'+((g.rend+2)/4*100)+'%"></b></div><div class="scale-l"><span>Empeora</span><span>Neutro</span><span>Mejora</span></div><p>'+md(g.rendT)+'</p></div>';
+  h += '<div class="dial"><h3>Seguridad en el ejercicio</h3><div class="scale risk"><b style="left:'+((g.riesgo-1)/2*100)+'%"></b></div><div class="scale-l"><span>Riesgo bajo</span><span>Moderado</span><span>Alto</span></div><p>'+RK[g.riesgo]+'.</p></div>';
+  h += '<div class="dial"><h3>Lista AMA 2026</h3>'+badge(g.ama)+'<p>'+md(g.amaT)+'</p></div></div>';
+  h += '<div class="cols"><div class="box"><h2>Cómo actúa</h2><p>'+md(g.mec)+'</p><h2 style="margin-top:14px">Por qué: la fisiología</h2><p>'+md(g.porque)+'</p></div>';
+  h += '<div class="box"><h2>En el ejercicio</h2><ul>'+g.ejer.map(function(e){ return '<li>'+md(e)+'</li>'; }).join("")+'</ul></div></div>';
+  h += '<div class="todo"><b class="t">Qué hacer como profesional del ejercicio</b>'+md(g.hacer)+'</div>';
+  var prev = list[i-1], next = list[i+1];
+  h += '<nav class="pager" aria-label="Otros grupos del sistema">'+(prev?'<a href="#g-'+prev.id+'"><small>Anterior</small>'+md(prev.n)+'</a>':'<a href="#sis-'+g.s+'"><small>Volver</small>'+S.n+'</a>')+(next?'<a href="#g-'+next.id+'" style="text-align:right"><small>Siguiente</small>'+md(next.n)+'</a>':'<a href="#inicio" style="text-align:right"><small>Volver</small>Al cuerpo</a>')+'</nav>';
+  return h+foot()+'</div>';
+}
+
+/* ---------- semáforo ---------- */
+var semSys = "todos";
+function semaforo(){
+  var h = '<div class="crumbs"><a href="#inicio">Cuerpo</a> › Semáforo AMA</div><h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:0 0 6px">Semáforo de la Lista AMA 2026</h1><p class="lead" style="color:var(--muted);max-width:70ch;margin:0 0 10px">Todos los grupos ordenados según cómo los trata la Lista de Prohibiciones. Filtra por sistema y pulsa un grupo para ver su ficha.</p><div class="filters">';
+  h += '<button type="button" data-f="todos" style="--c:var(--ink)" aria-pressed="'+(semSys==="todos")+'">Todos</button>';
+  Object.keys(SIS).forEach(function(k){ h += '<button type="button" data-f="'+k+'" style="--c:'+cv(SIS[k].c)+'" aria-pressed="'+(semSys===k)+'">'+SIS[k].corto+'</button>'; });
+  h += '</div><div class="lanes">';
+  ["ok","limite","comp","deporte","siempre"].forEach(function(a){
+    h += '<section class="lane" style="--a:'+cv(a)+'"><h3>'+AMA[a].n+'</h3><p>'+AMA[a].d+'</p>';
+    G.forEach(function(g){ if(g.ama===a && (semSys==="todos"||g.s===semSys)) h += '<a href="#g-'+g.id+'" style="--c:'+cv(SIS[g.s].c)+'">'+md(g.n)+'</a>'; });
+    h += '</section>';
+  });
+  return h+'</div>'+foot();
+}
+function wireSem(){ Array.prototype.forEach.call(document.querySelectorAll(".filters button"), function(b){ b.addEventListener("click", function(){ semSys = b.getAttribute("data-f"); render(true); }); }); }
+
+/* ---------- juego ---------- */
+var J = {order:[], i:0, ok:0, done:0};
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function juego(){
+  if(!J.order.length){ J.order = shuffle(JUEGO.map(function(_,i){ return i; })); J.i=0; J.ok=0; J.done=0; }
+  if(J.i>=J.order.length){ var pct=Math.round(100*J.ok/J.done);
+    return '<div class="game"><h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:0 0 10px">Resultado: '+J.ok+' de '+J.done+'</h1><p class="lead" style="color:var(--muted)">'+(pct>=80?'Muy buen criterio: ya distingues lo permitido de lo prohibido.':pct>=50?'Vas bien. Repasa el semáforo y vuelve a intentarlo.':'Repasa el semáforo de la Lista AMA y vuelve a jugar.')+'</p><button class="btn" id="restart">Jugar otra vez</button> <a class="btn" style="background:var(--f)" href="#semaforo">Ver el semáforo</a></div>'+foot(); }
+  var q = JUEGO[J.order[J.i]];
+  var h = '<div class="game"><div class="crumbs"><a href="#inicio">Cuerpo</a> › ¿Permitido?</div><h1 style="font-size:clamp(2rem,4.6vw,3rem);margin:0 0 12px">¿Cómo lo trata la Lista AMA?</h1><div class="gbar"><span>Caso '+(J.i+1)+' de '+J.order.length+'</span><span>Aciertos: '+J.ok+'</span></div><div class="qcard"><p class="sc">'+md(q.s)+'</p><div class="answers">';
+  ["ok","limite","comp","deporte","siempre"].forEach(function(a){ h += '<button type="button" data-a="'+a+'" style="--a:'+cv(a)+'"><i></i>'+AMA[a].n+'</button>'; });
+  h += '</div><div class="feedback" id="fb" aria-live="polite"></div></div></div>'+foot();
+  return h;
+}
+function wireJuego(){
+  var r = document.getElementById("restart"); if(r){ r.addEventListener("click", function(){ J.order=[]; render(); }); return; }
+  var q = JUEGO[J.order[J.i]], fb = document.getElementById("fb");
+  Array.prototype.forEach.call(document.querySelectorAll(".answers button"), function(b){
+    b.addEventListener("click", function(){
+      var a = b.getAttribute("data-a"), right = a===q.c;
+      Array.prototype.forEach.call(document.querySelectorAll(".answers button"), function(x){ x.disabled=true; if(x.getAttribute("data-a")===q.c) x.classList.add("right"); });
+      if(!right) b.classList.add("wrong");
+      J.done++; if(right) J.ok++;
+      fb.innerHTML = '<p style="margin:0 0 10px"><strong>'+(right?'Correcto.':'No es esa: '+AMA[q.c].n.toLowerCase()+'.')+'</strong> '+md(q.e)+'</p><button class="btn" id="next">'+(J.i+1<J.order.length?'Siguiente caso':'Ver el resultado')+'</button>';
+      fb.classList.add("show");
+      document.getElementById("next").addEventListener("click", function(){ J.i++; render(); });
+      document.getElementById("next").focus();
+    });
+  });
+}
+
+/* ---------- fundamentos ---------- */
+var FLOW = [["Músculo esquelético",20,84],["Hígado e intestino",25,2],["Riñones",20,1],["Cerebro",14,4],["Piel",6,4],["Corazón",4,4],["Otros",11,1]];
+var FUND = {
+ ladme:{n:"LADME y ejercicio", html:function(){
+  var h = '<p class="lead" style="max-width:72ch">El ejercicio cambia el destino de los fármacos porque **redistribuye la sangre**: hacia el músculo y la piel, lejos del intestino, el hígado y el riñón.</p>';
+  h += '<div class="flow"><div class="tg" role="group" aria-label="Situación"><button type="button" data-m="1" aria-pressed="true">Reposo</button><button type="button" data-m="2" aria-pressed="false">Ejercicio intenso</button></div><div id="bars"></div><p style="color:var(--muted);font-size:.9rem;margin:10px 0 0">Porcentaje aproximado del gasto cardiaco que recibe cada territorio. Valores orientativos de libros de fisiología del ejercicio.</p></div>';
+  h += '<div class="grid2">'+[
+   ["Absorción","El flujo esplácnico cae hasta un **80 %** y se retrasa el vaciado gástrico: un analgésico, un gel o la cafeína tomados en pleno esfuerzo intenso se absorben más despacio."],
+   ["Distribución","La sudoración prolongada produce **hemoconcentración**: sube la concentración de los fármacos unidos a proteínas. El calor desvía flujo a la piel y cambia el volumen de distribución."],
+   ["Metabolismo","Menos flujo hepático = menos **primer paso**: un fármaco de alta extracción tomado antes de un esfuerzo intenso puede tener más biodisponibilidad. Inductores e inhibidores del CYP450 cambian los niveles (claritromicina + corticoide inhalado)."],
+   ["Excreción","Cae el flujo renal y baja el aclaramiento. La **acidosis láctica** acidifica la orina y cambia la reabsorción de ácidos y bases débiles: la concentración en orina, clave en el control antidopaje, se modifica."]
+  ].map(function(x){ return '<div class="box"><h2>'+x[0]+'</h2><p>'+md(x[1])+'</p></div>'; }).join("")+'</div>';
+  h += '<div class="todo"><b class="t">Margen terapéutico frente a umbral antidopaje</b>Son conceptos parecidos con objetivos distintos: el margen terapéutico separa la concentración eficaz de la tóxica; el umbral urinario de la AMA separa la exposición plausible (terapéutica) de la que no lo es.</div>';
+  return h; }},
+ fd:{n:"Farmacodinamia", html:function(){
+  return '<p class="lead" style="max-width:72ch">Qué hace el fármaco con el cuerpo: se une a una diana (afinidad) y la activa o no (actividad intrínseca).</p><div class="grid2">'+[
+   ["Agonista, parcial y antagonista","**Agonista total**: afinidad y actividad intrínseca máxima (morfina). **Parcial**: no supera una respuesta submáxima aunque ocupe todos los receptores (buprenorfina). **Antagonista**: se une pero no activa; bloquea a otros (naloxona)."],
+   ["Potencia frente a eficacia","**Potencia**: dosis necesaria para un efecto (CE₅₀); a más potencia, menos dosis. **Eficacia**: efecto máximo alcanzable (Emáx). Más potente no significa más eficaz."],
+   ["Tipos de antagonismo","El **competitivo reversible** desplaza la curva a la derecha sin cambiar el Emáx (se supera con más agonista). El **irreversible** y el **no competitivo** reducen el Emáx."],
+   ["El entrenamiento también es farmacodinamia","La adrenalina repetida de cada sesión **desensibiliza los receptores β** (menos receptores en la membrana), igual que un agonista crónico. Por eso el deportista de fondo tiene bradicardia en reposo y puede necesitar más salbutamol para el mismo alivio, sin poder superar el máximo permitido."]
+  ].map(function(x){ return '<div class="box"><h2>'+x[0]+'</h2><p>'+md(x[1])+'</p></div>'; }).join("")+'</div><div class="todo"><b class="t">Índice terapéutico</b>Relación entre la dosis tóxica y la eficaz (DT₅₀/DE₅₀). Cuanto más estrecho (digoxina, teofilina, litio), más fácil es que la deshidratación o una interacción conviertan una dosis eficaz en tóxica.</div>';
+ }},
+ vias:{n:"Vías de administración", html:function(){
+  var rows=[["Oral","Segura, cómoda y barata","Absorción variable; alimentos; **primer paso** hepático; lenta en urgencias","En pleno esfuerzo intenso se absorbe peor"],
+   ["Sublingual","Evita el primer paso y el pH gástrico; efecto rápido","Solo fármacos muy liposolubles y dosis pequeñas","Nitroglicerina antes de un esfuerzo que provoca angina"],
+   ["Rectal","Evita parcialmente el primer paso; útil con vómitos","Absorción errática; poco aceptada","Corticoides por vía rectal: prohibidos en competición"],
+   ["Intravenosa","Efecto inmediato; grandes volúmenes","Flebitis, extravasación, infección; requiere personal","Infusiones IV > 100 mL/12 h: método prohibido (M2) salvo uso clínico legítimo"],
+   ["Intramuscular","Rápida si es acuosa; lenta y sostenida si es depot","Dolorosa; puede elevar la **creatina cinasa**; lesión del ciático","La CK elevada puede confundirse con daño muscular del entrenamiento"],
+   ["Subcutánea","Autoadministrable; liberación lenta","Volúmenes pequeños; irritación local","Insulina, heparinas, biológicos"],
+   ["Transdérmica","Acción sistémica lenta y sostenida; evita el primer paso","Solo fármacos lipófilos y potentes; irritación","El calor y el ejercicio aumentan la absorción del parche"],
+   ["Inhalatoria","Rápida; efecto local con poca dosis","Exige buena técnica; efectos locales (candidiasis)","Base del tratamiento del asma de esfuerzo"]];
+  return '<p class="lead" style="max-width:72ch">La vía decide la velocidad, la intensidad y los efectos adversos… y a veces si un fármaco está permitido.</p><div class="tablewrap"><table class="t"><thead><tr><th>Vía</th><th>Ventajas</th><th>Inconvenientes</th><th>En el deporte</th></tr></thead><tbody>'+rows.map(function(r){ return '<tr><td><strong>'+r[0]+'</strong></td><td>'+md(r[1])+'</td><td>'+md(r[2])+'</td><td>'+md(r[3])+'</td></tr>'; }).join("")+'</tbody></table></div>';
+ }},
+ inter:{n:"Interacciones", html:function(){
+  return '<p class="lead" style="max-width:72ch">Una interacción es la modificación del efecto de un fármaco por otro (o por un alimento o suplemento). Importan sobre todo con fármacos de **margen estrecho** y en la polifarmacia.</p><div class="grid2">'+[
+   ["Farmacodinámicas","Sobre el mismo receptor o sistema: **sinergia** (benzodiacepina + alcohol: depresión respiratoria) o **antagonismo** (betabloqueante no selectivo + salbutamol)."],
+   ["Absorción","El pH gástrico (un IBP reduce la absorción de fármacos que necesitan ácido), el tránsito (laxantes) y los quelantes (antiácidos con tetraciclinas o quinolonas)."],
+   ["Distribución","Desplazamiento de la albúmina: sube la fracción libre de manera transitoria (warfarina)."],
+   ["Metabolismo","La más frecuente. **Inductores** (rifampicina, carbamazepina, hipérico) bajan los niveles; **inhibidores** (claritromicina, azoles, ritonavir, pomelo) los suben."],
+   ["Excreción","Competencia por la secreción tubular (probenecid + penicilina) y cambios del pH urinario."],
+   ["Cascada terapéutica","Un efecto adverso se interpreta como una enfermedad nueva y se trata con otro fármaco, que añade nuevos efectos adversos."]
+  ].map(function(x){ return '<div class="box"><h2>'+x[0]+'</h2><p>'+md(x[1])+'</p></div>'; }).join("")+'</div><div class="todo"><b class="t">Del laboratorio al control antidopaje</b>Un deportista con corticoide inhalado empieza claritromicina por una infección: el macrólido inhibe el CYP3A4, suben los niveles del corticoide y puede aparecer en orina por encima de lo esperado.</div>';
+ }}
+};
+function fund(k){
+  var F = FUND[k]; if(!F) return nf();
+  var h = '<div style="--c:var(--f)"><div class="crumbs"><a href="#inicio">Cuerpo</a> › Fundamentos</div><h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:0 0 12px;color:var(--f)">'+F.n+'</h1><nav class="tabs" aria-label="Fundamentos">';
+  Object.keys(FUND).forEach(function(x){ h += '<a href="#fund-'+x+'"'+(x===k?' aria-current="page"':'')+'>'+FUND[x].n+'</a>'; });
+  return h+'</nav>'+md(F.html()).replace(/&lt;/g,"<")+foot()+'</div>';
+}
+function wireFund(k){
+  if(k!=="ladme") return;
+  var bars = document.getElementById("bars");
+  function draw(m){ bars.innerHTML = FLOW.map(function(f){ return '<div class="frow"><span>'+f[0]+'</span><div class="tr"><i style="width:'+f[m]+'%"></i></div><b>'+f[m]+' %</b></div>'; }).join(""); }
+  draw(1);
+  Array.prototype.forEach.call(document.querySelectorAll(".tg button"), function(b){ b.addEventListener("click", function(){ Array.prototype.forEach.call(document.querySelectorAll(".tg button"), function(x){ x.setAttribute("aria-pressed","false"); }); b.setAttribute("aria-pressed","true"); draw(+b.getAttribute("data-m")); }); });
+}
+
+/* ---------- dopaje ---------- */
+var LISTA = [
+ ["S0","No aprobadas","siempre","Sustancias sin aprobación para uso humano (fármacos en investigación, veterinarios). Prohibidas siempre."],
+ ["S1","Agentes anabolizantes","siempre","Testosterona, nandrolona, SARM y **clenbuterol** (aunque sea un β2, se clasifica aquí por su efecto anabolizante): masa y fuerza. Virilización, daño cardiaco, hipogonadismo."],
+ ["S2","Hormonas peptídicas y factores de crecimiento","siempre","**EPO** y activadores del HIF (más oxígeno, más hematocrito, más trombosis), hormona del crecimiento e IGF-1."],
+ ["S3","Beta-2 agonistas","limite","Prohibidos siempre, salvo **salbutamol, formoterol, salmeterol y vilanterol inhalados** por debajo de su dosis máxima."],
+ ["S4","Moduladores hormonales y metabólicos","siempre","Antiestrógenos, inhibidores de la aromatasa, **insulina** (un diabético necesita AUT), meldonio, trimetazidina."],
+ ["S5","Diuréticos y enmascarantes","siempre","Todos los diuréticos, desmopresina, probenecid y expansores del plasma: para perder peso y para ocultar otras sustancias."],
+ ["S6","Estimulantes","comp","Anfetaminas, cocaína, metilfenidato, modafinilo; efedrina y pseudoefedrina por encima de su umbral. La cafeína está permitida."],
+ ["S7","Narcóticos","comp","Morfina, fentanilo, oxicodona, metadona, **tramadol** (desde 2024)."],
+ ["S8","Cannabinoides","comp","THC (umbral 150 ng/mL). El CBD puro está permitido."],
+ ["S9","Glucocorticoides","comp","Prohibidos en competición por vía oral, rectal e **inyectable** (también infiltraciones). Inhalados y tópicos, permitidos."],
+ ["P1","Betabloqueantes","deporte","Tiro con arco, tiro y subacuáticas (siempre); automovilismo, billar, dardos, golf y minigolf (en competición)."],
+ ["M1","Manipulación de la sangre","siempre","Transfusiones (también autotransfusión) y, desde 2026, la extracción de sangre fuera de los supuestos clínicos."],
+ ["M2","Manipulación química y física","siempre","Manipular la muestra; infusiones IV de más de 100 mL en 12 h sin justificación clínica."],
+ ["M3","Dopaje genético y celular","siempre","Edición genética y uso de células o componentes celulares (desde 2026, también mitocondrias) para mejorar el rendimiento."]
+];
+function dopaje(){
+  var h = '<div style="--c:var(--siempre)"><div class="crumbs"><a href="#inicio">Cuerpo</a> › Dopaje</div><h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:0 0 8px">Dopaje y Lista de Prohibiciones</h1><p class="lead" style="color:var(--muted);max-width:74ch;margin:0 0 16px">El dopaje es una categoría **jurídica**, no farmacológica: el Código Mundial Antidopaje recoge 11 infracciones y solo una exige un positivo. Pulsa cada sección de la Lista 2026.</p>'.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  h += '<div class="list">'+LISTA.map(function(l,i){ return '<button type="button" data-i="'+i+'" style="--a:'+cv(l[2])+'" aria-pressed="'+(i===0)+'"><b>'+l[0]+'</b><small>'+l[1]+'</small></button>'; }).join("")+'</div><div class="detail" id="det" aria-live="polite"></div>';
+  h += '<div class="grid2" style="margin-top:18px">'+[
+   ["Por qué entra una sustancia","Basta con **dos de tres criterios**: mejora el rendimiento, supone un riesgo para la salud o vulnera el espíritu del deporte. También entra si puede enmascarar otras."],
+   ["Responsabilidad objetiva","Cada deportista responde de lo que aparece en su organismo, venga de donde venga. La intención gradúa la sanción, no la existencia de la infracción: un **suplemento contaminado** puede acabar en sanción."],
+   ["AUT: cuatro condiciones","Enfermedad diagnosticada que requiere el fármaco; no mejora el rendimiento más allá de devolver la salud; no hay alternativa permitida razonable; y la necesidad no viene de un uso previo sin AUT. Se pide con antelación (en España, a la CELAD)."],
+   ["Umbral no es dosis permitida","Salvo en los β2 inhalados, el umbral urinario separa la exposición plausible de la que no lo es. La mayoría de las sustancias no tienen umbral: cualquier cantidad es un resultado analítico adverso."],
+   ["Suplementos","Entre un 10 y un 30 % pueden estar contaminados o adulterados (estimulantes, prohormonas). Mejor alimentación primero, productos con certificación de terceros y guardar el lote."],
+   ["Antes de recomendar, consulta","**NoDopApp** (medicamentos en España), Global DRO y la Lista de la AMA, que cambia cada 1 de enero. Tú también eres «personal de apoyo»: puedes cometer infracciones."]
+  ].map(function(x){ return '<div class="box"><h2>'+x[0]+'</h2><p>'+md(x[1])+'</p></div>'; }).join("")+'</div>';
+  return h+foot()+'</div>';
+}
+function wireDop(){
+  var det = document.getElementById("det");
+  function show(i){ var l = LISTA[i]; det.style.borderLeft = "8px solid "+cv(l[2]); det.innerHTML = '<h2 style="margin:0 0 6px;font-size:1.6rem">'+l[0]+'. '+l[1]+'</h2>'+badge(l[2])+'<p style="margin:10px 0 0">'+md(l[3])+'</p>';
+    Array.prototype.forEach.call(document.querySelectorAll(".list button"), function(b){ b.setAttribute("aria-pressed", +b.getAttribute("data-i")===i); }); }
+  show(0);
+  Array.prototype.forEach.call(document.querySelectorAll(".list button"), function(b){ b.addEventListener("click", function(){ show(+b.getAttribute("data-i")); }); });
+}
+
+function nf(){ return '<p>Esa página no existe. Vuelve al <a href="#inicio">cuerpo</a>.</p>'; }
+
+/* ---------- enrutado ---------- */
+function render(keep){
+  var r = (location.hash||"#inicio").slice(1) || "inicio", h, nav = r, m;
+  if(r==="inicio"){ h = home(); }
+  else if((m=/^sis-(\w+)$/.exec(r))){ h = sistema(m[1]); nav="inicio"; }
+  else if((m=/^g-([\w-]+)$/.exec(r))){ h = ficha(m[1]); nav="inicio"; }
+  else if(r==="semaforo"){ h = semaforo(); }
+  else if(r==="juego"){ h = juego(); }
+  else if((m=/^fund-(\w+)$/.exec(r))){ h = fund(m[1]); nav="fund"; }
+  else if(r==="dopaje"){ h = dopaje(); }
+  else { h = home(); nav="inicio"; r="inicio"; }
+  app.innerHTML = h;
+  Array.prototype.forEach.call(document.querySelectorAll("nav.main a"), function(a){ if(a.getAttribute("data-r")===nav) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  if(r==="inicio") wireHome();
+  if(r==="semaforo") wireSem();
+  if(r==="juego") wireJuego();
+  if(m && r.indexOf("fund-")===0) wireFund(m[1]);
+  if(r==="dopaje") wireDop();
+  if(!keep) window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", function(){ render(); });
+render();
+})();
+</script>
+</body>
+</html>
